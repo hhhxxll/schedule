@@ -688,8 +688,8 @@
   <header>
     <div class="header-container">
       <div class="header-top-row">
-        <div class="tag-badge">
-          <span>📅 今日：2026年9月15日（第3周 星期二）</span>
+        <div class="tag-badge" id="todayDateBadge">
+          <span>📅 今日：加载中...</span>
         </div>
       </div>
 
@@ -831,27 +831,46 @@
     const boyCourses = [{"id": "c-xsyzc", "name": "形势与政策", "teacher": "李灏良", "location": "线上智慧教室", "day": 1, "startSec": 1, "endSec": 2, "time": "08:20-09:55", "weeks": [8, 9, 10, 11], "colorClass": "c-rose"}, {"id": "c-sjcj-14", "name": "数据采集与预处理", "teacher": "廖洪超", "location": "J3-302", "day": 2, "startSec": 1, "endSec": 2, "time": "08:20-09:55", "weeks": [3, 4, 5], "colorClass": "c-blue"}, {"id": "c-sjcj-34", "name": "数据采集与预处理", "teacher": "廖洪超", "location": "J3-302", "day": 2, "startSec": 3, "endSec": 4, "time": "10:15-11:50", "weeks": [3, 4, 5], "colorClass": "c-blue"}, {"id": "c-sjcj-78", "name": "数据采集与预处理", "teacher": "廖洪超", "location": "S5301智能算法基础实验室（8）", "day": 2, "startSec": 7, "endSec": 8, "time": "16:25-18:00", "weeks": [5, 6, 7, 8, 9, 10, 11, 12, 13, 14], "colorClass": "c-blue"}, {"id": "c-znsj-w3-12", "name": "智能数据工程与标注技术", "teacher": "黄梓琛", "location": "S4205智能算法基础实验室（2）", "day": 3, "startSec": 1, "endSec": 2, "time": "08:20-09:55", "weeks": [3, 4, 5], "colorClass": "c-green"}, {"id": "c-mxxl-w3-34", "name": "模型训练与优化", "teacher": "黄梓琛", "location": "S5201智能算法基础实验室（5）", "day": 3, "startSec": 3, "endSec": 4, "time": "10:15-11:50", "weeks": [3, 4, 5], "colorClass": "c-purple"}, {"id": "c-mxxl-w3-56", "name": "模型训练与优化", "teacher": "黄梓琛", "location": "S5201智能算法基础实验室（5）", "day": 3, "startSec": 5, "endSec": 6, "time": "14:30-16:05", "weeks": [3, 4, 5], "colorClass": "c-purple"}, {"id": "c-mxbs-w4-12", "name": "模型部署与加速", "teacher": "黄梓琛", "location": "S5201智能算法基础实验室（5）", "day": 4, "startSec": 1, "endSec": 2, "time": "08:20-09:55", "weeks": [3, 4, 5], "colorClass": "c-amber"}, {"id": "c-znsj-w4-34", "name": "智能数据工程与标注技术", "teacher": "黄梓琛", "location": "S5201智能算法基础实验室（5）", "day": 4, "startSec": 3, "endSec": 4, "time": "10:15-11:50", "weeks": [3, 4, 5], "colorClass": "c-green"}, {"id": "c-mxxl-w4-34", "name": "模型训练与优化", "teacher": "黄梓琛", "location": "S5201智能算法基础实验室（5）", "day": 4, "startSec": 3, "endSec": 4, "time": "10:15-11:50", "weeks": [6, 7, 8, 9, 10, 11, 12, 13, 14, 15], "colorClass": "c-purple"}, {"id": "c-mxbs-w5-12", "name": "模型部署与加速", "teacher": "黄梓琛", "location": "S5209智能算法基础实验室（7）", "day": 5, "startSec": 1, "endSec": 2, "time": "08:20-09:55", "weeks": [3, 4, 5], "colorClass": "c-amber"}, {"id": "c-znsj-w5-12", "name": "智能数据工程与标注技术", "teacher": "黄梓琛", "location": "S5209智能算法基础实验室（7）", "day": 5, "startSec": 1, "endSec": 2, "time": "08:20-09:55", "weeks": [6, 7, 8, 9, 10, 11, 12, 13, 14, 15], "colorClass": "c-green"}, {"id": "c-znt-w5-34", "name": "智能体开发实战", "teacher": "韩辉", "location": "S5201智能算法基础实验室（5）", "day": 5, "startSec": 3, "endSec": 4, "time": "10:15-11:50", "weeks": [3, 4, 5], "colorClass": "c-cyan"}, {"id": "c-mxbs-w5-34", "name": "模型部署与加速", "teacher": "黄梓琛", "location": "S5201智能算法基础实验室（5）", "day": 5, "startSec": 3, "endSec": 4, "time": "10:15-11:50", "weeks": [6, 7, 8, 9, 10, 11, 12, 13, 14, 15], "colorClass": "c-amber"}, {"id": "c-znt-w5-56-p1", "name": "智能体开发实战", "teacher": "韩辉", "location": "S5201智能算法基础实验室（5）", "day": 5, "startSec": 5, "endSec": 6, "time": "14:30-16:05", "weeks": [3, 4, 5], "colorClass": "c-cyan"}, {"id": "c-znt-w5-56-p2", "name": "智能体开发实战", "teacher": "韩辉", "location": "S5201智能算法基础实验室（5）", "day": 5, "startSec": 5, "endSec": 6, "time": "14:30-16:05", "weeks": [6, 7, 8, 9, 10, 11, 12, 13, 14, 15], "colorClass": "c-cyan"}];
     const girlCourses = [{"id": "c_mon_34_gwysz", "name": "公务员职业素养与湾区实务", "teacher": "魏琼", "location": "J1-501", "day": 1, "startSec": 3, "endSec": 4, "time": "10:15-11:50", "weeks": [5, 6, 7, 8], "colorClass": "c-peach"}, {"id": "c_mon_34_xszc", "name": "形势与政策", "teacher": "何宇红", "location": "线上智慧教室", "day": 1, "startSec": 3, "endSec": 4, "time": "10:15-11:50", "weeks": [8, 9, 10, 11], "colorClass": "c-rose"}, {"id": "c_mon_58_gwysz_p1", "name": "公务员职业素养与湾区实务", "teacher": "杨伊路", "location": "J1-403", "day": 1, "startSec": 5, "endSec": 6, "spanCount": 2, "time": "14:30-18:00", "weeks": [3, 4], "colorClass": "c-peach"}, {"id": "c_mon_58_gwysz_p1_part2", "name": "公务员职业素养与湾区实务", "teacher": "杨伊路", "location": "J1-403", "day": 1, "startSec": 7, "endSec": 8, "time": "16:25-18:00", "weeks": [3, 4], "colorClass": "c-peach"}, {"id": "c_mon_58_gwysz_p2", "name": "公务员职业素养与湾区实务", "teacher": "陈海玲", "location": "J2-403", "day": 1, "startSec": 5, "endSec": 6, "time": "14:30-16:05", "weeks": [9, 10], "colorClass": "c-peach"}, {"id": "c_mon_58_gwysz_p2_part2", "name": "公务员职业素养与湾区实务", "teacher": "陈海玲", "location": "J2-403", "day": 1, "startSec": 7, "endSec": 8, "time": "16:25-18:00", "weeks": [9, 10], "colorClass": "c-peach"}, {"id": "c_mon_58_ldl", "name": "领导力与应急管理", "teacher": "常永华", "location": "J1-403", "day": 1, "startSec": 5, "endSec": 6, "time": "14:30-16:05", "weeks": [11, 12, 13, 14], "colorClass": "c-lavender"}, {"id": "c_mon_58_ldl_part2", "name": "领导力与应急管理", "teacher": "常永华", "location": "J1-403", "day": 1, "startSec": 7, "endSec": 8, "time": "16:25-18:00", "weeks": [11, 12, 13, 14], "colorClass": "c-lavender"}, {"id": "c_tue_12_zhzf", "name": "智慧政府与AI政务应用", "teacher": "郑佳娜", "location": "J1-502", "day": 2, "startSec": 1, "endSec": 2, "time": "08:20-09:55", "weeks": [3, 4, 5, 7, 8, 9, 10, 11], "colorClass": "c-mint"}, {"id": "c_tue_34_ldl", "name": "领导力与应急管理", "teacher": "徐艺玲", "location": "J1-505", "day": 2, "startSec": 3, "endSec": 4, "time": "10:15-11:50", "weeks": [4, 5, 6, 7, 8, 9, 10], "colorClass": "c-lavender"}, {"id": "c_tue_56_zhzf_p1", "name": "智慧政府与AI政务应用", "teacher": "韩辉", "location": "S2505综合实验室", "day": 2, "startSec": 5, "endSec": 6, "time": "14:30-16:05", "weeks": [3, 4, 5, 7], "colorClass": "c-mint"}, {"id": "c_tue_56_zhzf_p2", "name": "智慧政府与AI政务应用", "teacher": "池娉", "location": "S2505综合实验室", "day": 2, "startSec": 5, "endSec": 6, "time": "14:30-16:05", "weeks": [8, 9, 10, 11], "colorClass": "c-mint"}, {"id": "c_tue_78_sl", "name": "申论（湾区治理主题）", "teacher": "何曼", "location": "J1-402", "day": 2, "startSec": 7, "endSec": 8, "time": "16:25-18:00", "weeks": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12], "colorClass": "c-cherry"}, {"id": "c_wed_34_xc", "name": "行政能力测试基础", "teacher": "谢咏欢", "location": "J2-403", "day": 3, "startSec": 3, "endSec": 4, "time": "10:15-11:50", "weeks": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12], "colorClass": "c-butter"}, {"id": "c_wed_56_gwysz", "name": "公务员职业素养与湾区实务", "teacher": "付敏", "location": "J1-507", "day": 3, "startSec": 5, "endSec": 6, "time": "14:30-16:05", "weeks": [11, 12, 13, 14], "colorClass": "c-peach"}, {"id": "c_fri_56_ldl", "name": "领导力与应急管理", "teacher": "徐艺玲", "location": "S4-101", "day": 5, "startSec": 5, "endSec": 6, "time": "14:30-16:05", "weeks": [13], "colorClass": "c-lavender"}, {"id": "c_sat_14_xc_w7", "name": "行政能力测试基础", "teacher": "谢咏欢", "location": "S4-101", "day": 6, "startSec": 1, "endSec": 4, "time": "08:20-11:50", "weeks": [7], "colorClass": "c-butter"}, {"id": "c_sat_14_sl_w8", "name": "申论（湾区治理主题）", "teacher": "何曼", "location": "S4-101", "day": 6, "startSec": 1, "endSec": 4, "time": "08:20-11:50", "weeks": [8], "colorClass": "c-cherry"}, {"id": "c_sat_14_xc_w9", "name": "行政能力测试基础", "teacher": "谢咏欢", "location": "S4-101", "day": 6, "startSec": 1, "endSec": 4, "time": "08:20-11:50", "weeks": [9], "colorClass": "c-butter"}, {"id": "c_sun_14_xc_w7", "name": "行政能力测试基础", "teacher": "谢咏欢", "location": "S4-101", "day": 7, "startSec": 1, "endSec": 4, "time": "08:20-11:50", "weeks": [7], "colorClass": "c-butter"}, {"id": "c_sun_14_sl_w8", "name": "申论（湾区治理主题）", "teacher": "何曼", "location": "S4-101", "day": 7, "startSec": 1, "endSec": 4, "time": "08:20-11:50", "weeks": [8], "colorClass": "c-cherry"}, {"id": "c_sun_14_sl_w9", "name": "申论（湾区治理主题）", "teacher": "何曼", "location": "S4-101", "day": 7, "startSec": 1, "endSec": 4, "time": "08:20-11:50", "weeks": [9], "colorClass": "c-cherry"}];
 
-    let currentSelectedWeek = 3;
+    const SEMESTER_START = new Date(2026, 7, 31); // 2026-08-31
+    const dayNames = ["", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"];
+
+    function getRealTimeInfo() {
+      const now = new Date();
+      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      const diffDays = Math.floor((today - SEMESTER_START) / (24 * 60 * 60 * 1000));
+      const calculatedWeek = Math.floor(diffDays / 7) + 1;
+      let dayOfWeek = now.getDay();
+      if (dayOfWeek === 0) dayOfWeek = 7;
+
+      return {
+        year: now.getFullYear(),
+        month: now.getMonth() + 1,
+        date: now.getDate(),
+        dayOfWeek: dayOfWeek,
+        calculatedWeek: calculatedWeek,
+        displayWeek: Math.max(3, Math.min(16, calculatedWeek))
+      };
+    }
+
+    const initialInfo = getRealTimeInfo();
+    let currentSelectedWeek = initialInfo.displayWeek;
     let isAdjustedMode = true;
     let currentViewMode = 'both'; // 'both' | 'boy' | 'girl'
     let currentSearchTerm = '';
 
-    const weekLabels = {
-      3: "第3周 (当前)",
-      4: "第4周",
-      5: "第5周 (放假)",
-      6: "第6周 (返校)",
-      7: "第7周",
-      8: "第8周",
-      9: "第9周",
-      10: "第10周 (大补课)",
-      11: "第11周",
-      12: "第12周",
-      13: "第13周",
-      14: "第14周",
-      15: "第15周",
-      16: "第16周 (结课)"
-    };
+    function updateTodayHeaderBadge() {
+      const info = getRealTimeInfo();
+      const badge = document.getElementById("todayDateBadge");
+      if (badge) {
+        let weekDesc = "";
+        if (info.calculatedWeek >= 1 && info.calculatedWeek <= 16) {
+          weekDesc = `（第${info.calculatedWeek}周 ${dayNames[info.dayOfWeek]}）`;
+        } else {
+          weekDesc = `（${dayNames[info.dayOfWeek]}）`;
+        }
+        badge.innerHTML = `<span>📅 今日：${info.year}年${info.month}月${info.date}日 ${weekDesc}</span>`;
+      }
+    }
 
     const adjustmentWeeks = [3, 4, 5, 6, 10];
 
@@ -930,11 +949,26 @@
     function renderWeekBar() {
       const container = document.getElementById("weekSelectorBar");
       container.innerHTML = "";
+      const realInfo = getRealTimeInfo();
 
       for (let w = 3; w <= 16; w++) {
         const chip = document.createElement("button");
         chip.className = `week-chip ${w === currentSelectedWeek ? 'active' : ''} ${adjustmentWeeks.includes(w) ? 'has-adj' : ''}`;
-        chip.innerHTML = weekLabels[w] || `第${w}周`;
+        
+        let label = `第${w}周`;
+        if (w === realInfo.calculatedWeek) {
+          label += " (当前)";
+        } else if (w === 5) {
+          label += " (放假)";
+        } else if (w === 6) {
+          label += " (返校)";
+        } else if (w === 10) {
+          label += " (大补课)";
+        } else if (w === 16) {
+          label += " (结课)";
+        }
+
+        chip.innerHTML = label;
         chip.onclick = () => selectWeek(w);
         container.appendChild(chip);
       }
@@ -984,9 +1018,7 @@
 
 
       // Update header day dates
-      const now = new Date();
-      let todayDayOfWeek = now.getDay();
-      if (todayDayOfWeek === 0) todayDayOfWeek = 7;
+      const realInfo = getRealTimeInfo();
 
       for (let d = 1; d <= 7; d++) {
         const dateStr = getDateForWeekDay(w, d);
@@ -994,7 +1026,7 @@
         const th = document.getElementById(`th-day-${d}`);
         const dayNames = ["", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"];
 
-        let isToday = (w === 3 && d === 2); // Simulated present day: 2026-09-15 Tue
+        const isToday = (w === realInfo.calculatedWeek && d === realInfo.dayOfWeek);
         const adj = isAdjustedMode ? getAdjustmentDayMapping(w, d) : null;
         let adjBadge = "";
         if (adj) {
@@ -1027,7 +1059,7 @@
         // Days 1 to 7
         for (let d = 1; d <= 7; d++) {
           const td = document.createElement("td");
-          const isToday = (w === 3 && d === 2);
+          const isToday = (w === realInfo.calculatedWeek && d === realInfo.dayOfWeek);
           if (isToday) td.classList.add("is-today-col");
 
           const cellDiv = document.createElement("div");
@@ -1260,6 +1292,7 @@
     }
 
     window.addEventListener("DOMContentLoaded", () => {
+      updateTodayHeaderBadge();
       renderWeekBar();
       renderScheduleTable();
     });
