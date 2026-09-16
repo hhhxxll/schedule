@@ -749,17 +749,6 @@
       </div>
     </div>
 
-    <!-- Week 3 Sunday Confirmation Alert -->
-    <div id="w3SpecialAlert" class="special-alert-card">
-      <span style="font-size: 24px;">📅</span>
-      <div>
-        <strong>9月20日（本周日）补课安排已锁定（补10月6日周二课）：</strong><br>
-        • <strong>早晨无早八</strong>：08:20-09:55 两人均无课；<br>
-        • <strong>👧 嘉慧</strong>：10:15-11:50 在 <strong>J1-505</strong> 上《领导力与应急管理》；下午 16:25-18:00 在 <strong>J1-402</strong> 上《申论》；<br>
-        • <strong>👦 叙礼</strong>：下午 16:25-18:00 在 <strong>S5301实验室</strong> 上《数据采集与预处理》（两人 18:00 同时下课）；<br>
-        • <strong>中午空闲</strong>：12:00 至 16:00 两人共同空闲。
-      </div>
-    </div>
 
     <!-- Mobile Swipe Hint -->
     <div class="mobile-swipe-hint">
@@ -993,13 +982,6 @@
       const body = document.getElementById("scheduleBody");
       body.innerHTML = "";
 
-      // Alert display
-      const w3Alert = document.getElementById("w3SpecialAlert");
-      if (w === 3 && isAdjustedMode) {
-        w3Alert.style.display = "flex";
-      } else {
-        w3Alert.style.display = "none";
-      }
 
       // Update header day dates
       const now = new Date();
