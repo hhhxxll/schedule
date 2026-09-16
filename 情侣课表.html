@@ -547,6 +547,26 @@
       color: #e11d48;
     }
 
+    /* Course Name & Details (Single Person View) */
+    .course-name {
+      font-weight: 700;
+      font-size: 12px;
+      margin-top: 3px;
+      margin-bottom: 3px;
+      color: #1e293b;
+      line-height: 1.35;
+    }
+
+    .course-detail {
+      font-size: 11px;
+      color: #64748b;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 2px;
+      line-height: 1.25;
+    }
+
     /* Partner Status Tag inside Cell */
     .partner-status-tag {
       font-size: 11px;
@@ -693,6 +713,8 @@
       .person-badge { font-size: 9.5px; padding: 1px 4px; }
       .busy-pill { font-size: 9.5px; padding: 1px 4px; }
       .partner-status-tag { font-size: 10px; padding: 3px 4px; }
+      .course-name { font-size: 10.5px; }
+      .course-detail { font-size: 9.5px; }
     }
   </style>
 </head>
@@ -736,7 +758,7 @@
       <!-- Search Input -->
       <div class="search-wrapper">
         <span class="search-icon">🔍</span>
-        <input type="text" id="courseSearch" class="search-input" placeholder="搜索课程..." oninput="filterCourses()">
+        <input type="text" id="courseSearch" class="search-input" placeholder="搜索课程、教室、老师..." oninput="filterCourses()">
       </div>
 
       <!-- Perspective Switcher -->
@@ -791,7 +813,7 @@
     </div>
 
     <!-- Color Legend -->
-    <div style="display: flex; gap: 16px; margin-top: 14px; flex-wrap: wrap; font-size: 12px; color: var(--text-muted); align-items: center;">
+    <div id="colorLegendBar" style="display: flex; gap: 16px; margin-top: 14px; flex-wrap: wrap; font-size: 12px; color: var(--text-muted); align-items: center;">
       <div style="display: flex; align-items: center; gap: 6px;">
         <span style="width: 12px; height: 12px; background: #0284c7; border-radius: 3px; display: inline-block;"></span>
         👦 叙礼有课
@@ -999,6 +1021,47 @@
       document.getElementById("btnViewBoth").className = `perspective-btn ${mode === 'both' ? 'active-both' : ''}`;
       document.getElementById("btnViewBoy").className = `perspective-btn ${mode === 'boy' ? 'active-boy' : ''}`;
       document.getElementById("btnViewGirl").className = `perspective-btn ${mode === 'girl' ? 'active-girl' : ''}`;
+
+      const legend = document.getElementById("colorLegendBar");
+      if (legend) {
+        if (mode === "both") {
+          legend.innerHTML = `
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="width: 12px; height: 12px; background: #0284c7; border-radius: 3px; display: inline-block;"></span>
+              👦 叙礼有课
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="width: 12px; height: 12px; background: #f43f5e; border-radius: 3px; display: inline-block;"></span>
+              👧 嘉慧有课
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="width: 12px; height: 12px; background: #fef08a; border: 1px solid #eab308; border-radius: 3px; display: inline-block;"></span>
+              ✨ 共同空闲
+            </div>
+          `;
+        } else if (mode === "boy") {
+          legend.innerHTML = `
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="width: 12px; height: 12px; background: #0284c7; border-radius: 3px; display: inline-block;"></span>
+              👦 叙礼课程（完整显示课名、教室、老师）
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="color: #94a3b8;">✨ 无课空闲</span>
+            </div>
+          `;
+        } else if (mode === "girl") {
+          legend.innerHTML = `
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="width: 12px; height: 12px; background: #f43f5e; border-radius: 3px; display: inline-block;"></span>
+              👧 嘉慧课程（完整显示课名、教室、老师）
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="color: #94a3b8;">✨ 无课空闲</span>
+            </div>
+          `;
+        }
+      }
+
       renderScheduleTable();
     }
 
@@ -1245,31 +1308,37 @@
             if (hasBoy) {
               boyItems.forEach(c => {
                 cellDiv.innerHTML += `
-                  <div class="course-card card-boy" style="height:100%; display:flex; align-items:center; justify-content:center;" title="${c.name}">
-                    <div class="busy-card-row" style="justify-content:center; gap:8px;">
+                  <div class="course-card card-boy" style="${boyItems.length === 1 ? 'height:100%;' : ''} display:flex; flex-direction:column; justify-content:center;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
                       <span class="person-badge">👦 叙礼</span>
-                      <span class="busy-pill">${c.isMakeup ? '调补' : '有课'}</span>
+                      ${c.isMakeup ? '<span class="busy-pill">调补</span>' : ''}
                     </div>
+                    <div class="course-name">${c.name}</div>
+                    ${c.location ? `<div class="course-detail"><span>📍</span> ${c.location}</div>` : ''}
+                    ${c.teacher ? `<div class="course-detail"><span>👤</span> ${c.teacher}</div>` : ''}
                   </div>
                 `;
               });
             } else {
-              cellDiv.innerHTML = `<div style="color:#94a3b8; font-size:12px; text-align:center; height:100%; display:flex; align-items:center; justify-content:center;">✨ 空闲</div>`;
+              cellDiv.innerHTML = `<div style="color:#94a3b8; font-size:12px; text-align:center; height:100%; display:flex; align-items:center; justify-content:center;">✨ 无课空闲</div>`;
             }
           } else if (currentViewMode === "girl") {
             if (hasGirl) {
               girlItems.forEach(c => {
                 cellDiv.innerHTML += `
-                  <div class="course-card card-girl" style="height:100%; display:flex; align-items:center; justify-content:center;" title="${c.name}">
-                    <div class="busy-card-row" style="justify-content:center; gap:8px;">
+                  <div class="course-card card-girl" style="${girlItems.length === 1 ? 'height:100%;' : ''} display:flex; flex-direction:column; justify-content:center;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
                       <span class="person-badge">👧 嘉慧</span>
-                      <span class="busy-pill">${c.isMakeup ? '调补' : '有课'}</span>
+                      ${c.isMakeup ? '<span class="busy-pill">调补</span>' : ''}
                     </div>
+                    <div class="course-name">${c.name}</div>
+                    ${c.location ? `<div class="course-detail"><span>📍</span> ${c.location}</div>` : ''}
+                    ${c.teacher ? `<div class="course-detail"><span>👤</span> ${c.teacher}</div>` : ''}
                   </div>
                 `;
               });
             } else {
-              cellDiv.innerHTML = `<div style="color:#94a3b8; font-size:12px; text-align:center; height:100%; display:flex; align-items:center; justify-content:center;">✨ 空闲</div>`;
+              cellDiv.innerHTML = `<div style="color:#94a3b8; font-size:12px; text-align:center; height:100%; display:flex; align-items:center; justify-content:center;">✨ 无课空闲</div>`;
             }
           }
 
