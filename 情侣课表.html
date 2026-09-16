@@ -462,20 +462,21 @@
 
     /* Timetable Cell Structure */
     .cell-content {
-      padding: 7px;
-      min-height: 85px;
+      padding: 6px;
+      min-height: 72px;
       display: flex;
       flex-direction: column;
-      gap: 5px;
+      gap: 4px;
       height: 100%;
+      justify-content: center;
     }
 
     /* Course Cards */
     .course-card {
-      border-radius: 10px;
-      padding: 8px 10px;
+      border-radius: 8px;
+      padding: 6px 8px;
       font-size: 12px;
-      line-height: 1.4;
+      line-height: 1.3;
       position: relative;
       transition: all 0.2s;
       box-shadow: 0 1px 3px rgba(0,0,0,0.03);
@@ -513,27 +514,37 @@
       display: inline-flex;
       align-items: center;
       gap: 3px;
-      font-size: 10.5px;
+      font-size: 11px;
       font-weight: 700;
-      padding: 1px 7px;
-      border-radius: 10px;
-      margin-bottom: 4px;
+      padding: 2px 7px;
+      border-radius: 6px;
+      white-space: nowrap;
     }
 
-    .course-name {
-      font-weight: 700;
-      font-size: 12.5px;
-      margin-bottom: 3px;
-      color: #1e293b;
-    }
-
-    .course-detail {
-      font-size: 11.5px;
-      color: #64748b;
+    .busy-card-row {
       display: flex;
       align-items: center;
+      justify-content: space-between;
       gap: 4px;
-      margin-top: 2px;
+      width: 100%;
+    }
+
+    .busy-pill {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 1px 6px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    .card-boy .busy-pill {
+      background: #e0f2fe;
+      color: #0284c7;
+    }
+
+    .card-girl .busy-pill {
+      background: #ffe4e6;
+      color: #e11d48;
     }
 
     /* Partner Status Tag inside Cell */
@@ -544,7 +555,8 @@
       line-height: 1.35;
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 4px;
+      white-space: nowrap;
     }
     .partner-boy-free {
       background: #f0f9ff;
@@ -673,12 +685,14 @@
       .search-wrapper { max-width: 100%; min-width: 100%; }
       .perspective-group { width: 100%; justify-content: space-around; }
       .mode-toggle-group { width: 100%; justify-content: space-around; }
-      .schedule-table { min-width: 820px; }
+      .schedule-table { min-width: 840px; }
       .schedule-table thead th.col-time,
       .schedule-table tbody td.col-time { width: 85px; font-size: 11px; padding: 8px 4px; }
-      .cell-content { padding: 5px; min-height: 70px; gap: 4px; }
-      .course-card { padding: 6px 7px; font-size: 11px; }
-      .course-name { font-size: 11.5px; }
+      .cell-content { padding: 3px; min-height: 52px; gap: 3px; }
+      .course-card { padding: 4px 5px; font-size: 10px; }
+      .person-badge { font-size: 9.5px; padding: 1px 4px; }
+      .busy-pill { font-size: 9.5px; padding: 1px 4px; }
+      .partner-status-tag { font-size: 10px; padding: 3px 4px; }
     }
   </style>
 </head>
@@ -722,7 +736,7 @@
       <!-- Search Input -->
       <div class="search-wrapper">
         <span class="search-icon">🔍</span>
-        <input type="text" id="courseSearch" class="search-input" placeholder="搜索课程、老师、教室..." oninput="filterCourses()">
+        <input type="text" id="courseSearch" class="search-input" placeholder="搜索课程..." oninput="filterCourses()">
       </div>
 
       <!-- Perspective Switcher -->
@@ -780,11 +794,11 @@
     <div style="display: flex; gap: 16px; margin-top: 14px; flex-wrap: wrap; font-size: 12px; color: var(--text-muted); align-items: center;">
       <div style="display: flex; align-items: center; gap: 6px;">
         <span style="width: 12px; height: 12px; background: #0284c7; border-radius: 3px; display: inline-block;"></span>
-        👦 叙礼课程
+        👦 叙礼有课
       </div>
       <div style="display: flex; align-items: center; gap: 6px;">
         <span style="width: 12px; height: 12px; background: #f43f5e; border-radius: 3px; display: inline-block;"></span>
-        👧 嘉慧课程
+        👧 嘉慧有课
       </div>
       <div style="display: flex; align-items: center; gap: 6px;">
         <span style="width: 12px; height: 12px; background: #fef08a; border: 1px solid #eab308; border-radius: 3px; display: inline-block;"></span>
@@ -1174,17 +1188,21 @@
               // Both have class!
               boyItems.forEach(c => {
                 cellDiv.innerHTML += `
-                  <div class="course-card card-boy">
-                    <div class="person-badge">👦 叙礼${c.isMakeup ? ' · 调补' : ''}</div>
-                    <div class="course-name">${c.name}</div>
+                  <div class="course-card card-boy" title="${c.name}">
+                    <div class="busy-card-row">
+                      <span class="person-badge">👦 叙礼</span>
+                      <span class="busy-pill">${c.isMakeup ? '调补' : '有课'}</span>
+                    </div>
                   </div>
                 `;
               });
               girlItems.forEach(c => {
                 cellDiv.innerHTML += `
-                  <div class="course-card card-girl">
-                    <div class="person-badge">👧 嘉慧${c.isMakeup ? ' · 调补' : ''}</div>
-                    <div class="course-name">${c.name}</div>
+                  <div class="course-card card-girl" title="${c.name}">
+                    <div class="busy-card-row">
+                      <span class="person-badge">👧 嘉慧</span>
+                      <span class="busy-pill">${c.isMakeup ? '调补' : '有课'}</span>
+                    </div>
                   </div>
                 `;
               });
@@ -1192,30 +1210,34 @@
               // Boy has class, Girl is free
               boyItems.forEach(c => {
                 cellDiv.innerHTML += `
-                  <div class="course-card card-boy">
-                    <div class="person-badge">👦 叙礼${c.isMakeup ? ' · 调补' : ''}</div>
-                    <div class="course-name">${c.name}</div>
+                  <div class="course-card card-boy" title="${c.name}">
+                    <div class="busy-card-row">
+                      <span class="person-badge">👦 叙礼</span>
+                      <span class="busy-pill">${c.isMakeup ? '调补' : '有课'}</span>
+                    </div>
                   </div>
                 `;
               });
               cellDiv.innerHTML += `
                 <div class="partner-status-tag partner-girl-free">
-                  <span>👧</span> 嘉慧此时无课
+                  <span>👧</span> 嘉慧无课
                 </div>
               `;
             } else if (!hasBoy && hasGirl) {
               // Girl has class, Boy is free
               girlItems.forEach(c => {
                 cellDiv.innerHTML += `
-                  <div class="course-card card-girl">
-                    <div class="person-badge">👧 嘉慧${c.isMakeup ? ' · 调补' : ''}</div>
-                    <div class="course-name">${c.name}</div>
+                  <div class="course-card card-girl" title="${c.name}">
+                    <div class="busy-card-row">
+                      <span class="person-badge">👧 嘉慧</span>
+                      <span class="busy-pill">${c.isMakeup ? '调补' : '有课'}</span>
+                    </div>
                   </div>
                 `;
               });
               cellDiv.innerHTML += `
                 <div class="partner-status-tag partner-boy-free">
-                  <span>👦</span> 叙礼此时无课
+                  <span>👦</span> 叙礼无课
                 </div>
               `;
             }
@@ -1223,27 +1245,31 @@
             if (hasBoy) {
               boyItems.forEach(c => {
                 cellDiv.innerHTML += `
-                  <div class="course-card card-boy" style="height:100%;">
-                    <div class="person-badge">👦 叙礼${c.isMakeup ? ' · 调补' : ''}</div>
-                    <div class="course-name">${c.name}</div>
+                  <div class="course-card card-boy" style="height:100%; display:flex; align-items:center; justify-content:center;" title="${c.name}">
+                    <div class="busy-card-row" style="justify-content:center; gap:8px;">
+                      <span class="person-badge">👦 叙礼</span>
+                      <span class="busy-pill">${c.isMakeup ? '调补' : '有课'}</span>
+                    </div>
                   </div>
                 `;
               });
             } else {
-              cellDiv.innerHTML = `<div style="color:#94a3b8; font-size:11.5px; text-align:center; padding-top:30px;">空闲</div>`;
+              cellDiv.innerHTML = `<div style="color:#94a3b8; font-size:12px; text-align:center; height:100%; display:flex; align-items:center; justify-content:center;">✨ 空闲</div>`;
             }
           } else if (currentViewMode === "girl") {
             if (hasGirl) {
               girlItems.forEach(c => {
                 cellDiv.innerHTML += `
-                  <div class="course-card card-girl" style="height:100%;">
-                    <div class="person-badge">👧 嘉慧${c.isMakeup ? ' · 调补' : ''}</div>
-                    <div class="course-name">${c.name}</div>
+                  <div class="course-card card-girl" style="height:100%; display:flex; align-items:center; justify-content:center;" title="${c.name}">
+                    <div class="busy-card-row" style="justify-content:center; gap:8px;">
+                      <span class="person-badge">👧 嘉慧</span>
+                      <span class="busy-pill">${c.isMakeup ? '调补' : '有课'}</span>
+                    </div>
                   </div>
                 `;
               });
             } else {
-              cellDiv.innerHTML = `<div style="color:#94a3b8; font-size:11.5px; text-align:center; padding-top:30px;">空闲</div>`;
+              cellDiv.innerHTML = `<div style="color:#94a3b8; font-size:12px; text-align:center; height:100%; display:flex; align-items:center; justify-content:center;">✨ 空闲</div>`;
             }
           }
 
