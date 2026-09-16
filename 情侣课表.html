@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌸 叙礼 & 嘉慧 · 情侣双人课表 🎀</title>
+  <style>
+    :root {
+      --boy-primary: #0284c7;
+      --boy-gradient: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+      --boy-bg: #f0f9ff;
+      --boy-border: #bae6fd;
+      --boy-text: #0369a1;
+
+      --girl-primary: #f43f5e;
+      --girl-gradient: linear-gradient(135deg, #fb7185 0%, #f43f5e 100%);
+      --girl-bg: #fff1f2;
+      --girl-border: #fecdd3;
+      --girl-text: #9f1239;
+
+      --both-primary: #8b5cf6;
+      --both-gradient: linear-gradient(135deg, #a78bfa 0%, #7c3aed 100%);
+      
+      --free-bg: #fefce8;
+      --free-border: #fef08a;
+      --free-text: #854d0e;
+
+      --bg-cream: #fffafb;
+      --bg-surface: #ffffff;
+      --text-main: #334155;
+      --text-muted: #64748b;
+      --text-light: #94a3b8;
+
+      --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.04);
+      --shadow-md: 0 6px 18px -2px rgba(0, 0, 0, 0.07);
+      --shadow-lg: 0 16px 32px -4px rgba(0, 0, 0, 0.1);
+
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-pill: 9999px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Rounded", "Nunito", "Quicksand", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background-color: var(--bg-cream);
+      background-image: 
+        radial-gradient(circle at 10% 15%, rgba(56, 189, 248, 0.07) 0%, transparent 45%),
+        radial-gradient(circle at 90% 10%, rgba(251, 113, 133, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 50% 85%, rgba(192, 132, 252, 0.06) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(253, 224, 71, 0.06) 0%, transparent 45%);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding-bottom: 90px;
+      min-height: 100vh;
+    }
+
+    /* Cozy Hero Header */
+    header {
+      background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 35%, #fff1f2 70%, #fefce8 100%);
+      padding: 26px 0 20px 0;
+      border-bottom: 1px solid #f1f5f9;
+      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+      position: relative;
+    }
+
+    .header-container {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .header-top-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .tag-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.92);
+      padding: 5px 14px;
+      border-radius: var(--radius-pill);
+      font-size: 13px;
+      font-weight: 600;
+      color: #334155;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+    }
+
+    .tag-badge .dot-boy {
+      width: 8px;
+      height: 8px;
+      background: #0284c7;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #38bdf8;
+    }
+
+    .tag-badge .dot-girl {
+      width: 8px;
+      height: 8px;
+      background: #f43f5e;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #fb7185;
+    }
+
+    .title-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 16px;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+      background: linear-gradient(135deg, #0369a1 0%, #8b5cf6 50%, #e11d48 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .sub-title {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      margin-top: 6px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1360px;
+      margin: 20px auto 0 auto;
+      padding: 0 20px;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Week Selector Bar */
+    .week-bar-container {
+      background: #ffffff;
+      border-radius: var(--radius-md);
+      padding: 12px 18px;
+      border: 1px solid #f1f5f9;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      overflow-x: auto;
+    }
+
+    .week-bar-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #6366f1;
+      text-transform: uppercase;
+      margin-right: 6px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .week-chip {
+      padding: 7px 16px;
+      border-radius: var(--radius-pill);
+      border: 1px solid #f1f5f9;
+      background: #ffffff;
+      font-size: 13px;
+      font-weight: 600;
+      color: #475569;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+    .week-chip:hover {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+      transform: translateY(-1px);
+    }
+    .week-chip.active {
+      background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
+      color: #ffffff;
+      border-color: transparent;
+      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
+      font-weight: 700;
+    }
+    .week-chip.has-adj {
+      border-color: #fb923c;
+      position: relative;
+    }
+    .week-chip.has-adj::after {
+      content: "";
+      position: absolute;
+      top: 3px;
+      right: 5px;
+      width: 6px;
+      height: 6px;
+      background: #fb923c;
+      border-radius: 50%;
+    }
+
+    /* Timetable Controls */
+    .schedule-controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .search-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      min-width: 260px;
+      flex: 1;
+      max-width: 380px;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      font-size: 15px;
+      color: var(--text-light);
+      pointer-events: none;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 9px 16px 9px 40px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--radius-pill);
+      font-size: 13.5px;
+      color: var(--text-main);
+      box-shadow: var(--shadow-sm);
+      outline: none;
+      transition: all 0.2s;
+    }
+    .search-input:focus {
+      border-color: #a855f7;
+      box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.12);
+    }
+
+    /* Perspective Switcher */
+    .perspective-group {
+      display: inline-flex;
+      background: #ffffff;
+      padding: 4px;
+      border-radius: var(--radius-pill);
+      border: 1px solid #e2e8f0;
+      box-shadow: var(--shadow-sm);
+      gap: 4px;
+    }
+
+    .perspective-btn {
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      border: none;
+      background: transparent;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .perspective-btn:hover {
+      color: var(--text-main);
+      background: #f8fafc;
+    }
+    .perspective-btn.active-both {
+      background: linear-gradient(135deg, #0284c7 0%, #f43f5e 100%);
+      color: #ffffff;
+      box-shadow: 0 2px 8px rgba(244, 63, 94, 0.25);
+    }
+    .perspective-btn.active-boy {
+      background: var(--boy-gradient);
+      color: #ffffff;
+      box-shadow: 0 2px 8px rgba(2, 132, 199, 0.25);
+    }
+    .perspective-btn.active-girl {
+      background: var(--girl-gradient);
+      color: #ffffff;
+      box-shadow: 0 2px 8px rgba(244, 63, 94, 0.25);
+    }
+
+    /* Mode Toggle */
+    .mode-toggle-group {
+      display: inline-flex;
+      background: #ffffff;
+      padding: 4px;
+      border-radius: var(--radius-pill);
+      border: 1px solid #e2e8f0;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .mode-btn {
+      padding: 6px 16px;
+      border-radius: var(--radius-pill);
+      border: none;
+      background: transparent;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .mode-btn.active {
+      background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
+      color: #ffffff;
+      box-shadow: 0 2px 8px rgba(99, 102, 241, 0.25);
+    }
+
+    /* Week 3 Alert */
+    .special-alert-card {
+      background: #fdf2f8;
+      border: 1.5px solid #fbcfe8;
+      border-radius: 14px;
+      padding: 14px 18px;
+      margin-bottom: 16px;
+      display: none;
+      align-items: center;
+      gap: 14px;
+      font-size: 13px;
+      color: #831843;
+    }
+
+    /* Mobile Swipe Hint */
+    .mobile-swipe-hint {
+      display: none;
+      background: #f8fafc;
+      border: 1px dashed #cbd5e1;
+      padding: 7px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    /* Table Layout */
+    .schedule-table-wrapper {
+      background: #ffffff;
+      border-radius: var(--radius-md);
+      border: 1px solid #e2e8f0;
+      box-shadow: var(--shadow-sm);
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      position: relative;
+    }
+
+    .schedule-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      min-width: 1080px;
+    }
+
+    .schedule-table th, 
+    .schedule-table td {
+      border-right: 1px solid #f1f5f9;
+      border-bottom: 1px solid #f1f5f9;
+      vertical-align: top;
+    }
+    .schedule-table th:last-child,
+    .schedule-table td:last-child {
+      border-right: none;
+    }
+    .schedule-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .schedule-table thead th {
+      background: #f8fafc;
+      padding: 12px 10px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #334155;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 4;
+    }
+
+    .schedule-table thead th.col-time {
+      width: 110px;
+      background: #f1f5f9;
+      position: sticky;
+      left: 0;
+      z-index: 6;
+    }
+
+    .schedule-table tbody td.col-time {
+      background: #f8fafc;
+      padding: 12px 8px;
+      text-align: center;
+      position: sticky;
+      left: 0;
+      z-index: 3;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #475569;
+      width: 110px;
+      box-shadow: 2px 0 6px rgba(0, 0, 0, 0.02);
+    }
+
+    .time-slot-sub {
+      font-size: 11px;
+      color: #94a3b8;
+      font-weight: normal;
+      margin-top: 3px;
+      display: block;
+    }
+
+    /* Today Column Highlight */
+    .is-today-col {
+      background-color: rgba(244, 63, 94, 0.02) !important;
+    }
+    .is-today-header {
+      background: linear-gradient(180deg, #fff1f2 0%, #fce7f3 100%) !important;
+      color: #be123c !important;
+      border-top: 3px solid #f43f5e;
+    }
+    .today-pill-tag {
+      background: #f43f5e;
+      color: #ffffff;
+      font-size: 10px;
+      padding: 1px 7px;
+      border-radius: 10px;
+      margin-left: 4px;
+      font-weight: bold;
+      display: inline-block;
+    }
+
+    /* Timetable Cell Structure */
+    .cell-content {
+      padding: 8px;
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      height: 100%;
+    }
+
+    /* Course Cards */
+    .course-card {
+      border-radius: 10px;
+      padding: 8px 10px;
+      font-size: 12px;
+      line-height: 1.4;
+      position: relative;
+      transition: all 0.2s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+    .course-card:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 3px 8px rgba(0,0,0,0.06);
+    }
+
+    /* Boy Card Styling */
+    .card-boy {
+      background: #f0f9ff;
+      border: 1px solid #bae6fd;
+      border-left: 3.5px solid #0284c7;
+      color: #0369a1;
+    }
+    .card-boy .person-badge {
+      background: #0284c7;
+      color: #ffffff;
+    }
+
+    /* Girl Card Styling */
+    .card-girl {
+      background: #fff1f2;
+      border: 1px solid #fecdd3;
+      border-left: 3.5px solid #f43f5e;
+      color: #9f1239;
+    }
+    .card-girl .person-badge {
+      background: #f43f5e;
+      color: #ffffff;
+    }
+
+    .person-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 1px 7px;
+      border-radius: 10px;
+      margin-bottom: 4px;
+    }
+
+    .course-name {
+      font-weight: 700;
+      font-size: 12.5px;
+      margin-bottom: 3px;
+      color: #1e293b;
+    }
+
+    .course-detail {
+      font-size: 11.5px;
+      color: #64748b;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 2px;
+    }
+
+    /* Partner Status Tag inside Cell */
+    .partner-status-tag {
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 6px;
+      line-height: 1.35;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .partner-boy-free {
+      background: #f0f9ff;
+      border: 1px dashed #7dd3fc;
+      color: #0284c7;
+    }
+    .partner-girl-free {
+      background: #fff1f2;
+      border: 1px dashed #f472b6;
+      color: #e11d48;
+    }
+
+    /* Mutual Free Card */
+    .mutual-free-card {
+      background: #fefce8;
+      border: 1px solid #fef08a;
+      border-radius: 10px;
+      padding: 10px 8px;
+      text-align: center;
+      color: #854d0e;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+    }
+    .mutual-free-title {
+      font-weight: 700;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .mutual-free-sub {
+      font-size: 11px;
+      color: #a16207;
+    }
+
+    /* Holiday Cell */
+    .holiday-cell {
+      background: #f1f5f9;
+      border: 1px dashed #cbd5e1;
+      border-radius: 10px;
+      padding: 10px 8px;
+      text-align: center;
+      color: #475569;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 3px;
+    }
+
+    /* Floating Egg Button */
+    .floating-egg {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: linear-gradient(135deg, #0284c7 0%, #f43f5e 100%);
+      color: #ffffff;
+      padding: 10px 18px;
+      border-radius: var(--radius-pill);
+      box-shadow: 0 6px 20px rgba(244, 63, 94, 0.35);
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      z-index: 99;
+      transition: all 0.25s;
+    }
+    .floating-egg:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 10px 24px rgba(244, 63, 94, 0.45);
+    }
+
+    /* Love Modal */
+    .love-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.45);
+      backdrop-filter: blur(5px);
+      z-index: 999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .love-modal-card {
+      background: #ffffff;
+      border-radius: 20px;
+      max-width: 460px;
+      width: 100%;
+      padding: 24px;
+      position: relative;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      border: 1px solid #fecdd3;
+    }
+    .love-modal-close {
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      background: #f1f5f9;
+      border: none;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      font-size: 16px;
+      cursor: pointer;
+      color: #64748b;
+    }
+
+    /* Mobile Media Queries */
+    @media (max-width: 768px) {
+      .header-container { padding: 0 14px; }
+      h1 { font-size: 22px; }
+      .container { padding: 0 10px; margin-top: 14px; }
+      .mobile-swipe-hint { display: block; }
+      .schedule-controls { flex-direction: column; align-items: stretch; gap: 10px; }
+      .search-wrapper { max-width: 100%; min-width: 100%; }
+      .perspective-group { width: 100%; justify-content: space-around; }
+      .mode-toggle-group { width: 100%; justify-content: space-around; }
+      .schedule-table { min-width: 820px; }
+      .schedule-table thead th.col-time,
+      .schedule-table tbody td.col-time { width: 85px; font-size: 11px; padding: 8px 4px; }
+      .cell-content { padding: 5px; min-height: 105px; gap: 4px; }
+      .course-card { padding: 6px 7px; font-size: 11px; }
+      .course-name { font-size: 11.5px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <div class="header-top-row">
+        <div class="tag-badge">
+          <span class="dot-boy"></span>
+          <span>👦 叙礼 · 23机器人工程1班</span>
+        </div>
+        <div class="tag-badge">
+          <span class="dot-girl"></span>
+          <span>👧 嘉慧 · 23英语4班</span>
+        </div>
+        <div class="tag-badge">
+          <span>📅 今日：2026年9月15日（第3周 星期二）</span>
+        </div>
+      </div>
+
+      <div class="title-row">
+        <div>
+          <h1>🌸 叙礼 & 嘉慧 · 情侣双人课表 🎀</h1>
+          <div class="sub-title">
+            <span>2026秋季学期 · 第3至16周动态日程</span>
+            <span>·</span>
+            <span>双人同屏课程比对 · 约会空闲自动高亮</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <div class="container">
+
+    <!-- Week Selector Bar -->
+    <div class="week-bar-container">
+      <span class="week-bar-title">🌸 教学周</span>
+      <div id="weekSelectorBar" style="display: flex; gap: 8px;">
+        <!-- Dynamically populated from Week 3 to 16 -->
+      </div>
+    </div>
+
+    <!-- Schedule Controls -->
+    <div class="schedule-controls">
+      <!-- Search Input -->
+      <div class="search-wrapper">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="courseSearch" class="search-input" placeholder="搜索课程、老师、教室..." oninput="filterCourses()">
+      </div>
+
+      <!-- Perspective Switcher -->
+      <div class="perspective-group">
+        <button class="perspective-btn active-both" id="btnViewBoth" onclick="setViewMode('both')">
+          <span>💑</span> 双人合体
+        </button>
+        <button class="perspective-btn" id="btnViewBoy" onclick="setViewMode('boy')">
+          <span>👦</span> 只看叙礼
+        </button>
+        <button class="perspective-btn" id="btnViewGirl" onclick="setViewMode('girl')">
+          <span>👧</span> 只看嘉慧
+        </button>
+      </div>
+
+      <!-- Mode Toggle -->
+      <div class="mode-toggle-group">
+        <button class="mode-btn active" id="btnModeAdjusted" onclick="setScheduleMode(true)">
+          🌸 调休实际执行
+        </button>
+        <button class="mode-btn" id="btnModeOriginal" onclick="setScheduleMode(false)">
+          📋 教务处原基准
+        </button>
+      </div>
+    </div>
+
+    <!-- Week 3 Sunday Confirmation Alert -->
+    <div id="w3SpecialAlert" class="special-alert-card">
+      <span style="font-size: 24px;">🎀</span>
+      <div>
+        <strong>9月20日（本周日）补课安排已锁定（补10月6日周二课）：</strong><br>
+        • <strong>两人早晨均无需起早</strong>：08:20-09:55 两人都没有课，享受浪漫懒觉！<br>
+        • <strong>👧 嘉慧</strong>：10:15-11:50 在 <strong>J1-505</strong> 上《领导力与应急管理》；下午 16:25-18:00 在 <strong>J1-402</strong> 上《申论》。<br>
+        • <strong>👦 叙礼</strong>：下午 16:25-18:00 在 <strong>S5301实验室</strong> 上《数据采集与预处理》（正好与嘉慧同时下课！）。<br>
+        • <strong>中午黄金空闲</strong>：12:00 至 16:00 两人共同空闲，可一起午餐及午休！
+      </div>
+    </div>
+
+    <!-- Mobile Swipe Hint -->
+    <div class="mobile-swipe-hint">
+      <span>👈</span> 左右滑动查看周一至周日全周课表 · 左侧节次已固定 <span>👉</span>
+    </div>
+
+    <!-- Timetable Grid -->
+    <div class="schedule-table-wrapper">
+      <table class="schedule-table" id="scheduleTable">
+        <thead>
+          <tr id="scheduleHeaderRow">
+            <th class="col-time">节次 / 时间</th>
+            <th id="th-day-1">星期一</th>
+            <th id="th-day-2">星期二</th>
+            <th id="th-day-3">星期三</th>
+            <th id="th-day-4">星期四</th>
+            <th id="th-day-5">星期五</th>
+            <th id="th-day-6">星期六</th>
+            <th id="th-day-7">星期日</th>
+          </tr>
+        </thead>
+        <tbody id="scheduleBody">
+          <!-- Dynamically populated rows -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Color Legend -->
+    <div style="display: flex; gap: 16px; margin-top: 14px; flex-wrap: wrap; font-size: 12px; color: var(--text-muted); align-items: center;">
+      <div style="display: flex; align-items: center; gap: 6px;">
+        <span style="width: 12px; height: 12px; background: #0284c7; border-radius: 3px; display: inline-block;"></span>
+        👦 叙礼课程（理工科·海盐蓝）
+      </div>
+      <div style="display: flex; align-items: center; gap: 6px;">
+        <span style="width: 12px; height: 12px; background: #f43f5e; border-radius: 3px; display: inline-block;"></span>
+        👧 嘉慧课程（文科/公考·樱花粉）
+      </div>
+      <div style="display: flex; align-items: center; gap: 6px;">
+        <span style="width: 12px; height: 12px; background: #fef08a; border: 1px solid #eab308; border-radius: 3px; display: inline-block;"></span>
+        ✨ 共同空闲（约会/自习黄金期）
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Floating Easter Egg Bubble -->
+  <div class="floating-egg" onclick="openLoveModal()" title="好家伙">
+    <span>好家伙</span>
+  </div>
+
+  <!-- Love Modal Overlay -->
+  <div id="loveModal" class="love-modal-overlay" onclick="handleModalBgClick(event)">
+    <div class="love-modal-card">
+      <button class="love-modal-close" onclick="closeLoveModal()">×</button>
+      <div style="font-size: 28px; text-align: center; margin-bottom: 8px;">💌</div>
+      <div style="font-size: 12px; font-weight: 700; color: #e11d48; text-align: center; margin-bottom: 8px;">
+        💖 FOR 叙礼 & 嘉慧 · 专属私藏信箱
+      </div>
+      <h2 style="font-size: 17px; text-align: center; margin-bottom: 12px; color: #1e293b;">
+        亲爱的，请查收今日份甜度！
+      </h2>
+      <div style="background: #fff1f2; border: 1px dashed #fbcfe8; border-radius: 12px; padding: 14px; min-height: 80px; margin-bottom: 14px;">
+        <div id="loveMessageText" style="font-size: 13.5px; line-height: 1.6; color: #831843;">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+      <div style="display: flex; gap: 10px; justify-content: flex-end;">
+        <button class="mode-btn" style="background: #f1f5f9; color: #475569;" onclick="refreshLoveNote()">
+          <span>🎲</span> 换一条悄悄话
+        </button>
+        <button class="mode-btn active" onclick="closeLoveModal()">
+          <span>🥰</span> 收到啦，抱抱！
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Embedded Data
+    const boyCourses = [{"id": "c-xsyzc", "name": "形势与政策", "teacher": "李灏良", "location": "线上智慧教室", "day": 1, "startSec": 1, "endSec": 2, "time": "08:20-09:55", "weeks": [8, 9, 10, 11], "colorClass": "c-rose"}, {"id": "c-sjcj-14", "name": "数据采集与预处理", "teacher": "廖洪超", "location": "J3-302", "day": 2, "startSec": 1, "endSec": 2, "time": "08:20-09:55", "weeks": [3, 4, 5], "colorClass": "c-blue"}, {"id": "c-sjcj-34", "name": "数据采集与预处理", "teacher": "廖洪超", "location": "J3-302", "day": 2, "startSec": 3, "endSec": 4, "time": "10:15-11:50", "weeks": [3, 4, 5], "colorClass": "c-blue"}, {"id": "c-sjcj-78", "name": "数据采集与预处理", "teacher": "廖洪超", "location": "S5301智能算法基础实验室（8）", "day": 2, "startSec": 7, "endSec": 8, "time": "16:25-18:00", "weeks": [5, 6, 7, 8, 9, 10, 11, 12, 13, 14], "colorClass": "c-blue"}, {"id": "c-znsj-w3-12", "name": "智能数据工程与标注技术", "teacher": "黄梓琛", "location": "S4205智能算法基础实验室（2）", "day": 3, "startSec": 1, "endSec": 2, "time": "08:20-09:55", "weeks": [3, 4, 5], "colorClass": "c-green"}, {"id": "c-mxxl-w3-34", "name": "模型训练与优化", "teacher": "黄梓琛", "location": "S5201智能算法基础实验室（5）", "day": 3, "startSec": 3, "endSec": 4, "time": "10:15-11:50", "weeks": [3, 4, 5], "colorClass": "c-purple"}, {"id": "c-mxxl-w3-56", "name": "模型训练与优化", "teacher": "黄梓琛", "location": "S5201智能算法基础实验室（5）", "day": 3, "startSec": 5, "endSec": 6, "time": "14:30-16:05", "weeks": [3, 4, 5], "colorClass": "c-purple"}, {"id": "c-mxbs-w4-12", "name": "模型部署与加速", "teacher": "黄梓琛", "location": "S5201智能算法基础实验室（5）", "day": 4, "startSec": 1, "endSec": 2, "time": "08:20-09:55", "weeks": [3, 4, 5], "colorClass": "c-amber"}, {"id": "c-znsj-w4-34", "name": "智能数据工程与标注技术", "teacher": "黄梓琛", "location": "S5201智能算法基础实验室（5）", "day": 4, "startSec": 3, "endSec": 4, "time": "10:15-11:50", "weeks": [3, 4, 5], "colorClass": "c-green"}, {"id": "c-mxxl-w4-34", "name": "模型训练与优化", "teacher": "黄梓琛", "location": "S5201智能算法基础实验室（5）", "day": 4, "startSec": 3, "endSec": 4, "time": "10:15-11:50", "weeks": [6, 7, 8, 9, 10, 11, 12, 13, 14, 15], "colorClass": "c-purple"}, {"id": "c-mxbs-w5-12", "name": "模型部署与加速", "teacher": "黄梓琛", "location": "S5209智能算法基础实验室（7）", "day": 5, "startSec": 1, "endSec": 2, "time": "08:20-09:55", "weeks": [3, 4, 5], "colorClass": "c-amber"}, {"id": "c-znsj-w5-12", "name": "智能数据工程与标注技术", "teacher": "黄梓琛", "location": "S5209智能算法基础实验室（7）", "day": 5, "startSec": 1, "endSec": 2, "time": "08:20-09:55", "weeks": [6, 7, 8, 9, 10, 11, 12, 13, 14, 15], "colorClass": "c-green"}, {"id": "c-znt-w5-34", "name": "智能体开发实战", "teacher": "韩辉", "location": "S5201智能算法基础实验室（5）", "day": 5, "startSec": 3, "endSec": 4, "time": "10:15-11:50", "weeks": [3, 4, 5], "colorClass": "c-cyan"}, {"id": "c-mxbs-w5-34", "name": "模型部署与加速", "teacher": "黄梓琛", "location": "S5201智能算法基础实验室（5）", "day": 5, "startSec": 3, "endSec": 4, "time": "10:15-11:50", "weeks": [6, 7, 8, 9, 10, 11, 12, 13, 14, 15], "colorClass": "c-amber"}, {"id": "c-znt-w5-56-p1", "name": "智能体开发实战", "teacher": "韩辉", "location": "S5201智能算法基础实验室（5）", "day": 5, "startSec": 5, "endSec": 6, "time": "14:30-16:05", "weeks": [3, 4, 5], "colorClass": "c-cyan"}, {"id": "c-znt-w5-56-p2", "name": "智能体开发实战", "teacher": "韩辉", "location": "S5201智能算法基础实验室（5）", "day": 5, "startSec": 5, "endSec": 6, "time": "14:30-16:05", "weeks": [6, 7, 8, 9, 10, 11, 12, 13, 14, 15], "colorClass": "c-cyan"}];
+    const girlCourses = [{"id": "c_mon_34_gwysz", "name": "公务员职业素养与湾区实务", "teacher": "魏琼", "location": "J1-501", "day": 1, "startSec": 3, "endSec": 4, "time": "10:15-11:50", "weeks": [5, 6, 7, 8], "colorClass": "c-peach"}, {"id": "c_mon_34_xszc", "name": "形势与政策", "teacher": "何宇红", "location": "线上智慧教室", "day": 1, "startSec": 3, "endSec": 4, "time": "10:15-11:50", "weeks": [8, 9, 10, 11], "colorClass": "c-rose"}, {"id": "c_mon_58_gwysz_p1", "name": "公务员职业素养与湾区实务", "teacher": "杨伊路", "location": "J1-403", "day": 1, "startSec": 5, "endSec": 6, "spanCount": 2, "time": "14:30-18:00", "weeks": [3, 4], "colorClass": "c-peach"}, {"id": "c_mon_58_gwysz_p1_part2", "name": "公务员职业素养与湾区实务", "teacher": "杨伊路", "location": "J1-403", "day": 1, "startSec": 7, "endSec": 8, "time": "16:25-18:00", "weeks": [3, 4], "colorClass": "c-peach"}, {"id": "c_mon_58_gwysz_p2", "name": "公务员职业素养与湾区实务", "teacher": "陈海玲", "location": "J2-403", "day": 1, "startSec": 5, "endSec": 6, "time": "14:30-16:05", "weeks": [9, 10], "colorClass": "c-peach"}, {"id": "c_mon_58_gwysz_p2_part2", "name": "公务员职业素养与湾区实务", "teacher": "陈海玲", "location": "J2-403", "day": 1, "startSec": 7, "endSec": 8, "time": "16:25-18:00", "weeks": [9, 10], "colorClass": "c-peach"}, {"id": "c_mon_58_ldl", "name": "领导力与应急管理", "teacher": "常永华", "location": "J1-403", "day": 1, "startSec": 5, "endSec": 6, "time": "14:30-16:05", "weeks": [11, 12, 13, 14], "colorClass": "c-lavender"}, {"id": "c_mon_58_ldl_part2", "name": "领导力与应急管理", "teacher": "常永华", "location": "J1-403", "day": 1, "startSec": 7, "endSec": 8, "time": "16:25-18:00", "weeks": [11, 12, 13, 14], "colorClass": "c-lavender"}, {"id": "c_tue_12_zhzf", "name": "智慧政府与AI政务应用", "teacher": "郑佳娜", "location": "J1-502", "day": 2, "startSec": 1, "endSec": 2, "time": "08:20-09:55", "weeks": [3, 4, 5, 7, 8, 9, 10, 11], "colorClass": "c-mint"}, {"id": "c_tue_34_ldl", "name": "领导力与应急管理", "teacher": "徐艺玲", "location": "J1-505", "day": 2, "startSec": 3, "endSec": 4, "time": "10:15-11:50", "weeks": [4, 5, 6, 7, 8, 9, 10], "colorClass": "c-lavender"}, {"id": "c_tue_56_zhzf_p1", "name": "智慧政府与AI政务应用", "teacher": "韩辉", "location": "S2505综合实验室", "day": 2, "startSec": 5, "endSec": 6, "time": "14:30-16:05", "weeks": [3, 4, 5, 7], "colorClass": "c-mint"}, {"id": "c_tue_56_zhzf_p2", "name": "智慧政府与AI政务应用", "teacher": "池娉", "location": "S2505综合实验室", "day": 2, "startSec": 5, "endSec": 6, "time": "14:30-16:05", "weeks": [8, 9, 10, 11], "colorClass": "c-mint"}, {"id": "c_tue_78_sl", "name": "申论（湾区治理主题）", "teacher": "何曼", "location": "J1-402", "day": 2, "startSec": 7, "endSec": 8, "time": "16:25-18:00", "weeks": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12], "colorClass": "c-cherry"}, {"id": "c_wed_34_xc", "name": "行政能力测试基础", "teacher": "谢咏欢", "location": "J2-403", "day": 3, "startSec": 3, "endSec": 4, "time": "10:15-11:50", "weeks": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12], "colorClass": "c-butter"}, {"id": "c_wed_56_gwysz", "name": "公务员职业素养与湾区实务", "teacher": "付敏", "location": "J1-507", "day": 3, "startSec": 5, "endSec": 6, "time": "14:30-16:05", "weeks": [11, 12, 13, 14], "colorClass": "c-peach"}, {"id": "c_fri_56_ldl", "name": "领导力与应急管理", "teacher": "徐艺玲", "location": "S4-101", "day": 5, "startSec": 5, "endSec": 6, "time": "14:30-16:05", "weeks": [13], "colorClass": "c-lavender"}, {"id": "c_sat_14_xc_w7", "name": "行政能力测试基础", "teacher": "谢咏欢", "location": "S4-101", "day": 6, "startSec": 1, "endSec": 4, "time": "08:20-11:50", "weeks": [7], "colorClass": "c-butter"}, {"id": "c_sat_14_sl_w8", "name": "申论（湾区治理主题）", "teacher": "何曼", "location": "S4-101", "day": 6, "startSec": 1, "endSec": 4, "time": "08:20-11:50", "weeks": [8], "colorClass": "c-cherry"}, {"id": "c_sat_14_xc_w9", "name": "行政能力测试基础", "teacher": "谢咏欢", "location": "S4-101", "day": 6, "startSec": 1, "endSec": 4, "time": "08:20-11:50", "weeks": [9], "colorClass": "c-butter"}, {"id": "c_sun_14_xc_w7", "name": "行政能力测试基础", "teacher": "谢咏欢", "location": "S4-101", "day": 7, "startSec": 1, "endSec": 4, "time": "08:20-11:50", "weeks": [7], "colorClass": "c-butter"}, {"id": "c_sun_14_sl_w8", "name": "申论（湾区治理主题）", "teacher": "何曼", "location": "S4-101", "day": 7, "startSec": 1, "endSec": 4, "time": "08:20-11:50", "weeks": [8], "colorClass": "c-cherry"}, {"id": "c_sun_14_sl_w9", "name": "申论（湾区治理主题）", "teacher": "何曼", "location": "S4-101", "day": 7, "startSec": 1, "endSec": 4, "time": "08:20-11:50", "weeks": [9], "colorClass": "c-cherry"}];
+
+    let currentSelectedWeek = 3;
+    let isAdjustedMode = true;
+    let currentViewMode = 'both'; // 'both' | 'boy' | 'girl'
+    let currentSearchTerm = '';
+
+    const weekLabels = {
+      3: "第3周 (当前)",
+      4: "第4周",
+      5: "第5周 (放假)",
+      6: "第6周 (返校)",
+      7: "第7周",
+      8: "第8周",
+      9: "第9周",
+      10: "第10周 (大补课)",
+      11: "第11周",
+      12: "第12周",
+      13: "第13周",
+      14: "第14周",
+      15: "第15周",
+      16: "第16周 (结课)"
+    };
+
+    const adjustmentWeeks = [3, 4, 5, 6, 10];
+
+    const timeSlots = [
+      { id: "1-2", label: "第一二节", time: "08:20-09:55", startSec: 1, endSec: 2 },
+      { id: "3-4", label: "第三四节", time: "10:15-11:50", startSec: 3, endSec: 4 },
+      { id: "5-6", label: "第五六节", time: "14:30-16:05", startSec: 5, endSec: 6 },
+      { id: "7-8", label: "第七八节", time: "16:25-18:00", startSec: 7, endSec: 8 },
+      { id: "9-11", label: "第九至十一节", time: "19:00-21:25", startSec: 9, endSec: 11 }
+    ];
+
+    function getDateForWeekDay(w, d) {
+      // 2026-08-31 is Week 1 Monday
+      const start = new Date(2026, 7, 31);
+      const offsetDays = (w - 1) * 7 + (d - 1);
+      const target = new Date(start.getTime() + offsetDays * 24 * 60 * 60 * 1000);
+      const y = target.getFullYear();
+      const m = String(target.getMonth() + 1).padStart(2, '0');
+      const date = String(target.getDate()).padStart(2, '0');
+      return `${y}-${m}-${date}`;
+    }
+
+    function formatShortDate(dateStr) {
+      const parts = dateStr.split('-');
+      return `${parts[1]}月${parts[2]}日`;
+    }
+
+    // Holiday & Makeup Mapping
+    function getAdjustmentDayMapping(w, d) {
+      const dateStr = getDateForWeekDay(w, d);
+
+      // 9月25日 (周五 第4周) 放假首日
+      if (dateStr === "2026-09-25") {
+        return { type: "holiday", reason: "中秋国庆首日放假停课", targetDesc: "原周五课程停课" };
+      }
+
+      // 9月28日 至 10月7日 假期
+      if (dateStr >= "2026-09-28" && dateStr <= "2026-10-07") {
+        if (dateStr === "2026-09-28") return { type: "holiday", reason: "国庆假期中", targetDesc: "周一课程调至11月5日" };
+        if (dateStr === "2026-09-29") return { type: "holiday", reason: "国庆假期中", targetDesc: "周二课程调至11月6日" };
+        if (dateStr === "2026-09-30") return { type: "holiday", reason: "国庆假期中", targetDesc: "周三课程调至11月7日" };
+        if (dateStr === "2026-10-06") return { type: "holiday", reason: "国庆假期中", targetDesc: "周二课程调至9月20日" };
+        if (dateStr === "2026-10-07") return { type: "holiday", reason: "返校日(17:00前)", targetDesc: "周三课程调至10月10日" };
+        return { type: "holiday", reason: "国庆法定假期", targetDesc: "放假休整" };
+      }
+
+      // 9月20日 (周日 第3周) 补 10月6日 (周二)
+      if (dateStr === "2026-09-20") {
+        return { type: "makeup", sourceWeek: 6, sourceDay: 2, label: "补10月6日(周二)课", isW3Sunday: true };
+      }
+
+      // 10月10日 (周六 第6周) 补 10月7日 (周三)
+      if (dateStr === "2026-10-10") {
+        return { type: "makeup", sourceWeek: 6, sourceDay: 3, label: "补10月7日(周三)课" };
+      }
+
+      // 11月5日 (周四 第10周) 补 9月28日 (周一)
+      if (dateStr === "2026-11-05") {
+        return { type: "makeup", sourceWeek: 5, sourceDay: 1, label: "补9月28日(周一)课" };
+      }
+
+      // 11月6日 (周五 第10周) 补 9月29日 (周二)
+      if (dateStr === "2026-11-06") {
+        return { type: "makeup", sourceWeek: 5, sourceDay: 2, label: "补9月29日(周二)课" };
+      }
+
+      // 11月7日 (周六 第10周) 补 9月30日 (周三)
+      if (dateStr === "2026-11-07") {
+        return { type: "makeup", sourceWeek: 5, sourceDay: 3, label: "补9月30日(周三)课" };
+      }
+
+      return null;
+    }
+
+    // Render Week Bar
+    function renderWeekBar() {
+      const container = document.getElementById("weekSelectorBar");
+      container.innerHTML = "";
+
+      for (let w = 3; w <= 16; w++) {
+        const chip = document.createElement("button");
+        chip.className = `week-chip ${w === currentSelectedWeek ? 'active' : ''} ${adjustmentWeeks.includes(w) ? 'has-adj' : ''}`;
+        chip.innerHTML = weekLabels[w] || `第${w}周`;
+        chip.onclick = () => selectWeek(w);
+        container.appendChild(chip);
+      }
+    }
+
+    function selectWeek(w) {
+      currentSelectedWeek = w;
+      renderWeekBar();
+      renderScheduleTable();
+    }
+
+    function setViewMode(mode) {
+      currentViewMode = mode;
+      document.getElementById("btnViewBoth").className = `perspective-btn ${mode === 'both' ? 'active-both' : ''}`;
+      document.getElementById("btnViewBoy").className = `perspective-btn ${mode === 'boy' ? 'active-boy' : ''}`;
+      document.getElementById("btnViewGirl").className = `perspective-btn ${mode === 'girl' ? 'active-girl' : ''}`;
+      renderScheduleTable();
+    }
+
+    function setScheduleMode(isAdj) {
+      isAdjustedMode = isAdj;
+      document.getElementById("btnModeAdjusted").className = `mode-btn ${isAdj ? 'active' : ''}`;
+      document.getElementById("btnModeOriginal").className = `mode-btn ${!isAdj ? 'active' : ''}`;
+      renderScheduleTable();
+    }
+
+    function filterCourses() {
+      currentSearchTerm = document.getElementById("courseSearch").value.trim().toLowerCase();
+      renderScheduleTable();
+    }
+
+    // Find course helper
+    function getCoursesForSlot(coursesList, targetWeek, targetDay, startSec, endSec) {
+      return coursesList.filter(c => {
+        return c.day === targetDay && 
+               c.startSec <= startSec && 
+               c.endSec >= endSec && 
+               c.weeks.includes(targetWeek);
+      });
+    }
+
+    // Main Timetable Rendering
+    function renderScheduleTable() {
+      const w = currentSelectedWeek;
+      const body = document.getElementById("scheduleBody");
+      body.innerHTML = "";
+
+      // Alert display
+      const w3Alert = document.getElementById("w3SpecialAlert");
+      if (w === 3 && isAdjustedMode) {
+        w3Alert.style.display = "flex";
+      } else {
+        w3Alert.style.display = "none";
+      }
+
+      // Update header day dates
+      const now = new Date();
+      let todayDayOfWeek = now.getDay();
+      if (todayDayOfWeek === 0) todayDayOfWeek = 7;
+
+      for (let d = 1; d <= 7; d++) {
+        const dateStr = getDateForWeekDay(w, d);
+        const shortDate = formatShortDate(dateStr);
+        const th = document.getElementById(`th-day-${d}`);
+        const dayNames = ["", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"];
+
+        let isToday = (w === 3 && d === 2); // Simulated present day: 2026-09-15 Tue
+        const adj = isAdjustedMode ? getAdjustmentDayMapping(w, d) : null;
+        let adjBadge = "";
+        if (adj) {
+          if (adj.type === "holiday") {
+            adjBadge = `<span style="display:block; font-size:11px; color:#ef4444; font-weight:normal;">[放假停课]</span>`;
+          } else if (adj.type === "makeup") {
+            adjBadge = `<span style="display:block; font-size:11px; color:#d97706; font-weight:normal;">[${adj.label}]</span>`;
+          }
+        }
+
+        const todayTag = isToday ? ` <span class="today-pill-tag">今日</span>` : "";
+        th.innerHTML = `${dayNames[d]}${todayTag}<span style="display:block; font-size:11px; color:#64748b; font-weight:normal; margin-top:2px;">${shortDate}</span>${adjBadge}`;
+        if (isToday) {
+          th.classList.add("is-today-header");
+        } else {
+          th.classList.remove("is-today-header");
+        }
+      }
+
+      // Render rows for timeSlots
+      timeSlots.forEach(slot => {
+        const tr = document.createElement("tr");
+
+        // Time header column
+        const tdTime = document.createElement("td");
+        tdTime.className = "col-time";
+        tdTime.innerHTML = `<div>${slot.label}</div><span class="time-slot-sub">${slot.time}</span>`;
+        tr.appendChild(tdTime);
+
+        // Days 1 to 7
+        for (let d = 1; d <= 7; d++) {
+          const td = document.createElement("td");
+          const isToday = (w === 3 && d === 2);
+          if (isToday) td.classList.add("is-today-col");
+
+          const cellDiv = document.createElement("div");
+          cellDiv.className = "cell-content";
+
+          const adj = isAdjustedMode ? getAdjustmentDayMapping(w, d) : null;
+
+          // Holiday Handling
+          if (adj && adj.type === "holiday") {
+            cellDiv.innerHTML = `
+              <div class="holiday-cell">
+                <span style="font-size:18px;">🏖️</span>
+                <div style="font-weight:700; font-size:12px; color:#e11d48;">${adj.reason}</div>
+                <div style="font-size:11px; color:#64748b;">${adj.targetDesc}</div>
+              </div>
+            `;
+            td.appendChild(cellDiv);
+            tr.appendChild(td);
+            continue;
+          }
+
+          // Compute target lookup week and day
+          let lookupWeek = w;
+          let lookupDay = d;
+
+          if (adj && adj.type === "makeup") {
+            lookupWeek = adj.sourceWeek;
+            lookupDay = adj.sourceDay;
+          }
+
+          // Special confirmed logic for 2026-09-20 (Week 3 Sunday)
+          let boyItems = [];
+          let girlItems = [];
+
+          if (adj && adj.isW3Sunday) {
+            // Sunday makeup:
+            // Girl: 10:15-11:50 J1-505 领导力; 16:25-18:00 J1-402 申论.
+            // Boy: 16:25-18:00 S5301 数据采集. Morning no class!
+            if (slot.id === "1-2") {
+              boyItems = [];
+              girlItems = [];
+            } else if (slot.id === "3-4") {
+              boyItems = [];
+              girlItems = [{
+                name: "领导力与应急管理",
+                teacher: "徐艺玲",
+                location: "J1-505",
+                isMakeup: true
+              }];
+            } else if (slot.id === "7-8") {
+              boyItems = [{
+                name: "数据采集与预处理",
+                teacher: "廖洪超",
+                location: "S5301智能算法基础实验室（8）",
+                isMakeup: true
+              }];
+              girlItems = [{
+                name: "申论（湾区治理主题）",
+                teacher: "何曼",
+                location: "J1-402",
+                isMakeup: true
+              }];
+            }
+          } else {
+            boyItems = getCoursesForSlot(boyCourses, lookupWeek, lookupDay, slot.startSec, slot.endSec);
+            girlItems = getCoursesForSlot(girlCourses, lookupWeek, lookupDay, slot.startSec, slot.endSec);
+          }
+
+          // Search Filter applied
+          if (currentSearchTerm) {
+            boyItems = boyItems.filter(c => 
+              c.name.toLowerCase().includes(currentSearchTerm) ||
+              (c.teacher && c.teacher.toLowerCase().includes(currentSearchTerm)) ||
+              (c.location && c.location.toLowerCase().includes(currentSearchTerm)) ||
+              "叙礼".includes(currentSearchTerm)
+            );
+            girlItems = girlItems.filter(c => 
+              c.name.toLowerCase().includes(currentSearchTerm) ||
+              (c.teacher && c.teacher.toLowerCase().includes(currentSearchTerm)) ||
+              (c.location && c.location.toLowerCase().includes(currentSearchTerm)) ||
+              "嘉慧".includes(currentSearchTerm)
+            );
+          }
+
+          // Determine what to display based on currentViewMode
+          const showBoy = (currentViewMode === "both" || currentViewMode === "boy");
+          const showGirl = (currentViewMode === "both" || currentViewMode === "girl");
+
+          const hasBoy = boyItems.length > 0;
+          const hasGirl = girlItems.length > 0;
+
+          // Render Cards
+          if (currentViewMode === "both") {
+            if (!hasBoy && !hasGirl) {
+              // Mutual Free!
+              if (adj && adj.isW3Sunday && slot.id === "1-2") {
+                cellDiv.innerHTML = `
+                  <div class="mutual-free-card" style="background:#fdf4ff; border-color:#f5d0fe; color:#86198f;">
+                    <div class="mutual-free-title">😴 调课睡大觉</div>
+                    <div class="mutual-free-sub" style="color:#a21caf;">早晨两人均无课 · 睡到自然醒</div>
+                  </div>
+                `;
+              } else {
+                cellDiv.innerHTML = `
+                  <div class="mutual-free-card">
+                    <div class="mutual-free-title">✨ 共同空闲</div>
+                    <div class="mutual-free-sub">约会 / 自习 / 干饭黄金期</div>
+                  </div>
+                `;
+              }
+            } else if (hasBoy && hasGirl) {
+              // Both have class!
+              boyItems.forEach(c => {
+                cellDiv.innerHTML += `
+                  <div class="course-card card-boy">
+                    <div class="person-badge">👦 叙礼${c.isMakeup ? ' · 调补' : ''}</div>
+                    <div class="course-name">${c.name}</div>
+                    <div class="course-detail">📍 ${c.location}</div>
+                    <div class="course-detail">👤 ${c.teacher || ''}</div>
+                  </div>
+                `;
+              });
+              girlItems.forEach(c => {
+                cellDiv.innerHTML += `
+                  <div class="course-card card-girl">
+                    <div class="person-badge">👧 嘉慧${c.isMakeup ? ' · 调补' : ''}</div>
+                    <div class="course-name">${c.name}</div>
+                    <div class="course-detail">📍 ${c.location}</div>
+                    <div class="course-detail">👤 ${c.teacher || ''}</div>
+                  </div>
+                `;
+              });
+            } else if (hasBoy && !hasGirl) {
+              // Boy has class, Girl is free
+              boyItems.forEach(c => {
+                cellDiv.innerHTML += `
+                  <div class="course-card card-boy">
+                    <div class="person-badge">👦 叙礼${c.isMakeup ? ' · 调补' : ''}</div>
+                    <div class="course-name">${c.name}</div>
+                    <div class="course-detail">📍 ${c.location}</div>
+                    <div class="course-detail">👤 ${c.teacher || ''}</div>
+                  </div>
+                `;
+              });
+              cellDiv.innerHTML += `
+                <div class="partner-status-tag partner-girl-free">
+                  <span>🌸</span> 👧 嘉慧此时没课 (可探班/等下课)
+                </div>
+              `;
+            } else if (!hasBoy && hasGirl) {
+              // Girl has class, Boy is free
+              girlItems.forEach(c => {
+                cellDiv.innerHTML += `
+                  <div class="course-card card-girl">
+                    <div class="person-badge">👧 嘉慧${c.isMakeup ? ' · 调补' : ''}</div>
+                    <div class="course-name">${c.name}</div>
+                    <div class="course-detail">📍 ${c.location}</div>
+                    <div class="course-detail">👤 ${c.teacher || ''}</div>
+                  </div>
+                `;
+              });
+              cellDiv.innerHTML += `
+                <div class="partner-status-tag partner-boy-free">
+                  <span>🥤</span> 👦 叙礼此时没课 (买杯奶茶等她)
+                </div>
+              `;
+            }
+          } else if (currentViewMode === "boy") {
+            if (hasBoy) {
+              boyItems.forEach(c => {
+                cellDiv.innerHTML += `
+                  <div class="course-card card-boy" style="height:100%;">
+                    <div class="person-badge">👦 叙礼${c.isMakeup ? ' · 调补' : ''}</div>
+                    <div class="course-name">${c.name}</div>
+                    <div class="course-detail">📍 ${c.location}</div>
+                    <div class="course-detail">👤 ${c.teacher || ''}</div>
+                  </div>
+                `;
+              });
+            } else {
+              cellDiv.innerHTML = `<div style="color:#94a3b8; font-size:11.5px; text-align:center; padding-top:30px;">空闲</div>`;
+            }
+          } else if (currentViewMode === "girl") {
+            if (hasGirl) {
+              girlItems.forEach(c => {
+                cellDiv.innerHTML += `
+                  <div class="course-card card-girl" style="height:100%;">
+                    <div class="person-badge">👧 嘉慧${c.isMakeup ? ' · 调补' : ''}</div>
+                    <div class="course-name">${c.name}</div>
+                    <div class="course-detail">📍 ${c.location}</div>
+                    <div class="course-detail">👤 ${c.teacher || ''}</div>
+                  </div>
+                `;
+              });
+            } else {
+              cellDiv.innerHTML = `<div style="color:#94a3b8; font-size:11.5px; text-align:center; padding-top:30px;">空闲</div>`;
+            }
+          }
+
+          td.appendChild(cellDiv);
+          tr.appendChild(td);
+        }
+
+        body.appendChild(tr);
+      });
+    }
+
+    // Easter Egg Data & Logic
+    const loveNotes = [
+      "双人合体课表上线啦！两人的课程与空档一览无余，以后去哪吃饭自习都不用反复问课表啦～🥰",
+      "今天也是超级超级喜欢嘉慧的一天！上课记得多喝温水，中午好好休息，下课我随时待命～🥤✨",
+      "听说两个人共同空闲的时候，最适合牵手去小树林散步或者图书馆并排刷题自习啦！📚💑",
+      "你上课，我等你；我上课，你陪我～无论课表多忙碌，我们总能在彼此的时间表里找到最甜的交叉点！💖",
+      "周日补课上午两人都睡大觉，下午下课还能刚好对上时间一起吃大餐，简直是天作之合！🎉🥘",
+      "写申论写行测如果累了，随时找叙礼～无论多难的题目，你在我心里永远都是最聪明的小才女！🌟",
+      "课表我都帮你整理得清清楚楚啦，连休13天提前溜、节后返校躺平～有我在，你就安心被宠成小公主！🌸"
+    ];
+
+    let currentNoteIndex = 0;
+
+    function openLoveModal() {
+      const modal = document.getElementById("loveModal");
+      const text = document.getElementById("loveMessageText");
+      text.innerText = loveNotes[currentNoteIndex % loveNotes.length];
+      modal.style.display = "flex";
+    }
+
+    function closeLoveModal() {
+      document.getElementById("loveModal").style.display = "none";
+    }
+
+    function refreshLoveNote() {
+      currentNoteIndex++;
+      const text = document.getElementById("loveMessageText");
+      text.innerText = loveNotes[currentNoteIndex % loveNotes.length];
+    }
+
+    function handleModalBgClick(event) {
+      if (event.target.id === "loveModal") {
+        closeLoveModal();
+      }
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      renderWeekBar();
+      renderScheduleTable();
+    });
+  </script>
+</body>
+</html>
