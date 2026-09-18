@@ -869,69 +869,6 @@
       justify-content: center;
     }
 
-    /* Floating Easter Egg Bubble */
-    .floating-egg {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
-      color: #ffffff;
-      padding: 12px 18px;
-      border-radius: var(--radius-pill);
-      box-shadow: 0 8px 25px rgba(236, 72, 153, 0.45);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-weight: 700;
-      font-size: 13.5px;
-      z-index: 100;
-      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-    .floating-egg:hover {
-      transform: translateY(-4px) scale(1.05);
-      box-shadow: 0 12px 30px rgba(236, 72, 153, 0.6);
-    }
-
-    /* Love Modal Dialog */
-    .love-modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(15, 23, 42, 0.45);
-      backdrop-filter: blur(4px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-      padding: 20px;
-    }
-    .love-modal-card {
-      background: #ffffff;
-      width: 100%;
-      max-width: 440px;
-      border-radius: var(--radius-lg);
-      padding: 24px;
-      position: relative;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-      border: 1px solid #fecdd3;
-    }
-    .love-modal-close {
-      position: absolute;
-      top: 14px;
-      right: 16px;
-      background: #f1f5f9;
-      border: none;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      font-size: 16px;
-      cursor: pointer;
-      color: #64748b;
-    }
-
     /* Mobile Media Queries */
     @media (max-width: 768px) {
       .header-container { padding: 0 14px; }
@@ -1077,38 +1014,6 @@
       </div>
     </div>
 
-  </div>
-
-  <!-- Floating Easter Egg Bubble -->
-  <div class="floating-egg" onclick="openLoveModal()" title="好家伙">
-    <span>好家伙</span>
-  </div>
-
-  <!-- Love Modal Overlay -->
-  <div id="loveModal" class="love-modal-overlay" onclick="handleModalBgClick(event)">
-    <div class="love-modal-card">
-      <button class="love-modal-close" onclick="closeLoveModal()">×</button>
-      <div style="font-size: 28px; text-align: center; margin-bottom: 8px;">📝</div>
-      <div style="font-size: 12px; font-weight: 700; color: #0284c7; text-align: center; margin-bottom: 8px;">
-        专属便签信箱
-      </div>
-      <h2 style="font-size: 17px; text-align: center; margin-bottom: 12px; color: #1e293b;">
-        今日便签与提示
-      </h2>
-      <div style="background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 12px; padding: 14px; min-height: 80px; margin-bottom: 14px;">
-        <div id="loveMessageText" style="font-size: 13.5px; line-height: 1.6; color: #334155;">
-          <!-- Populated by JS -->
-        </div>
-      </div>
-      <div style="display: flex; gap: 10px; justify-content: flex-end;">
-        <button type="button" onclick="refreshLoveNote()" style="background: #f1f5f9; border: 1px solid #e2e8f0; color: #475569; padding: 7px 14px; border-radius: 8px; font-size: 12.5px; cursor: pointer; font-weight: 600;">
-          换一条 🎲
-        </button>
-        <button type="button" onclick="closeLoveModal()" style="background: linear-gradient(135deg, #0284c7 0%, #8b5cf6 100%); border: none; color: #ffffff; padding: 7px 18px; border-radius: 8px; font-size: 12.5px; cursor: pointer; font-weight: 600;">
-          知道了 💕
-        </button>
-      </div>
-    </div>
   </div>
 
   <script>
@@ -1780,42 +1685,6 @@
       wrapper.addEventListener("scroll", () => {
         updateActiveWeekFromScroll();
       }, { passive: true });
-    }
-
-    // Easter Egg Data & Logic
-    const loveNotes = [
-      "双人合体课表上线啦！两人的课程与空档一览无余，以后去哪吃饭自习都不用反复问课表啦～🥰",
-      "今天也是超级超级喜欢嘉慧的一天！上课记得多喝温水，中午好好休息，下课我随时待命～🥤✨",
-      "听说两个人共同空闲的时候，最适合牵手去小树林散步或者图书馆并排刷题自习啦！📚💑",
-      "你上课，我等你；我上课，你陪我～无论课表多忙碌，我们总能在彼此的时间表里找到最甜的交叉点！💖",
-      "周日补课上午两人都睡大觉，下午下课还能刚好对上时间一起吃大餐，简直是天作之合！🎉🥘",
-      "写申论写行测如果累了，随时找叙礼～无论多难的题目，你在我心里永远都是最聪明的小才女！🌟",
-      "课表我都帮你整理得清清楚楚啦，连休13天提前溜、节后返校躺平～有我在，你就安心被宠成小公主！🌸"
-    ];
-
-    let currentNoteIndex = 0;
-
-    function openLoveModal() {
-      const modal = document.getElementById("loveModal");
-      const text = document.getElementById("loveMessageText");
-      text.innerText = loveNotes[currentNoteIndex % loveNotes.length];
-      modal.style.display = "flex";
-    }
-
-    function closeLoveModal() {
-      document.getElementById("loveModal").style.display = "none";
-    }
-
-    function refreshLoveNote() {
-      currentNoteIndex++;
-      const text = document.getElementById("loveMessageText");
-      text.innerText = loveNotes[currentNoteIndex % loveNotes.length];
-    }
-
-    function handleModalBgClick(event) {
-      if (event.target.id === "loveModal") {
-        closeLoveModal();
-      }
     }
 
     window.addEventListener("DOMContentLoaded", () => {
