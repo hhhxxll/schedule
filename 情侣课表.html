@@ -166,15 +166,14 @@
       z-index: 10;
     }
 
-    /* Week Selector Bar & Range Slider (Placed Below Table) */
+    /* Week Selector Bar & Range Slider (Located Above Timetable) */
     .week-bar-container {
       background: #ffffff;
       border-radius: var(--radius-md);
       padding: 16px 20px;
       border: 1px solid #f1f5f9;
       box-shadow: var(--shadow-sm);
-      margin-top: 18px;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
       display: flex;
       flex-direction: column;
       gap: 12px;
@@ -277,7 +276,7 @@
       background: linear-gradient(to right, #38bdf8 0%, #818cf8 50%, #f43f5e 100%);
       outline: none;
       cursor: pointer;
-      margin: 6px 0 4px 0;
+      margin: 6px 0 6px 0;
       transition: opacity 0.2s;
     }
 
@@ -316,8 +315,8 @@
     }
 
     .slider-marks {
-      display: flex;
-      justify-content: space-between;
+      position: relative;
+      height: 18px;
       font-size: 11px;
       color: #94a3b8;
       margin-top: 2px;
@@ -328,7 +327,7 @@
       display: flex;
       gap: 8px;
       overflow-x: auto;
-      padding: 4px 0 2px 0;
+      padding: 6px 0 2px 0;
       scrollbar-width: thin;
     }
 
@@ -514,46 +513,22 @@
       font-weight: 500;
     }
 
-    /* Timetable Viewport & Seamless Translation Slider */
-    .schedule-viewport {
-      position: relative;
-      width: 100%;
-      overflow: hidden;
+    /* Continuous 14-Week Canvas Timetable */
+    .schedule-table-wrapper {
+      background: #ffffff;
       border-radius: var(--radius-md);
       border: 1px solid #e2e8f0;
       box-shadow: var(--shadow-sm);
-      background: #ffffff;
-      touch-action: pan-x pan-y;
-    }
-
-    .schedule-track {
-      display: flex;
-      width: 100%;
-      position: relative;
-      align-items: flex-start;
-      will-change: transform;
-    }
-
-    .schedule-slide {
-      flex: 0 0 100%;
-      width: 100%;
-      max-width: 100%;
-      box-sizing: border-box;
-    }
-
-    .schedule-table-wrapper {
-      background: #ffffff;
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
       position: relative;
-      border: none;
     }
 
     .schedule-table {
-      width: 100%;
       border-collapse: separate;
       border-spacing: 0;
-      min-width: 1080px;
+      width: max-content;
+      min-width: 100%;
     }
 
     .schedule-table th, 
@@ -562,46 +537,85 @@
       border-bottom: 1px solid #f1f5f9;
       vertical-align: top;
     }
-    .schedule-table th:last-child,
-    .schedule-table td:last-child {
-      border-right: none;
-    }
-    .schedule-table tr:last-child td {
-      border-bottom: none;
-    }
-
-    .schedule-table thead th {
-      background: #f8fafc;
-      padding: 12px 10px;
-      font-size: 13px;
-      font-weight: 700;
-      color: #334155;
-      text-align: center;
-      position: sticky;
-      top: 0;
-      z-index: 4;
-    }
 
     .schedule-table thead th.col-time {
-      width: 110px;
-      background: #f1f5f9;
       position: sticky;
       left: 0;
-      z-index: 6;
+      top: 0;
+      z-index: 25;
+      background: #f1f5f9;
+      width: 110px;
+      min-width: 110px;
+      box-shadow: 2px 0 6px rgba(0, 0, 0, 0.04);
+      text-align: center;
+      vertical-align: middle;
+      font-size: 13px;
+      font-weight: 800;
+      color: #334155;
     }
 
     .schedule-table tbody td.col-time {
-      background: #f8fafc;
-      padding: 12px 8px;
-      text-align: center;
       position: sticky;
       left: 0;
-      z-index: 3;
+      z-index: 15;
+      background: #f8fafc;
+      width: 110px;
+      min-width: 110px;
+      box-shadow: 2px 0 6px rgba(0, 0, 0, 0.04);
+      text-align: center;
       font-size: 12.5px;
       font-weight: 700;
       color: #475569;
-      width: 110px;
-      box-shadow: 2px 0 6px rgba(0, 0, 0, 0.02);
+      padding: 12px 8px;
+    }
+
+    .th-week-group {
+      background: #f8fafc;
+      font-size: 13px;
+      font-weight: 800;
+      color: #4338ca;
+      text-align: center;
+      padding: 10px 8px;
+      border-bottom: 2px solid #e2e8f0;
+      border-right: 3px solid #cbd5e1;
+      letter-spacing: 0.02em;
+    }
+
+    .th-week-group.is-current {
+      background: #eef2ff;
+      color: #4f46e5;
+    }
+
+    .th-week-group.is-holiday {
+      background: #fff1f2;
+      color: #be123c;
+    }
+
+    .th-week-group.has-adj {
+      background: #fff7ed;
+      color: #c2410c;
+    }
+
+    .day-header-th {
+      background: #ffffff;
+      padding: 10px 6px;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #334155;
+      text-align: center;
+      border-bottom: 1px solid #e2e8f0;
+      min-width: 140px;
+      width: 140px;
+    }
+
+    .day-cell {
+      min-width: 140px;
+      width: 140px;
+      padding: 4px;
+    }
+
+    .week-end-day {
+      border-right: 3px solid #cbd5e1 !important;
     }
 
     .time-slot-sub {
@@ -634,7 +648,7 @@
 
     /* Timetable Cell Structure */
     .cell-content {
-      padding: 6px;
+      padding: 4px;
       min-height: 72px;
       display: flex;
       flex-direction: column;
@@ -859,20 +873,24 @@
       h1 { font-size: 22px; }
       .title-icon { font-size: 22px; }
       .container { padding: 0 10px; margin-top: 14px; }
-      .week-bar-container { padding: 12px 14px; gap: 10px; margin-top: 14px; }
+      .week-bar-container { padding: 12px 14px; gap: 10px; margin-bottom: 12px; }
       .week-slider-header { gap: 6px; }
       .week-active-badge { font-size: 11px; padding: 2px 8px; }
       .week-today-btn { font-size: 10.5px; padding: 2px 7px; }
       .week-nav-btn { width: 26px; height: 26px; font-size: 10px; }
       .slider-marks { font-size: 10px; }
+      .mark-sub { display: none; }
       .mobile-swipe-hint { display: block; }
       .schedule-controls { flex-direction: column; align-items: stretch; gap: 10px; }
       .search-wrapper { max-width: 100%; min-width: 100%; }
       .perspective-group { width: 100%; justify-content: space-around; }
       .mode-toggle-group { width: 100%; justify-content: space-around; }
-      .schedule-table { min-width: 840px; }
+      
+      .day-header-th { min-width: 105px; width: 105px; font-size: 11.5px; padding: 8px 4px; }
+      .day-cell { min-width: 105px; width: 105px; padding: 2px; }
       .schedule-table thead th.col-time,
-      .schedule-table tbody td.col-time { width: 85px; font-size: 11px; padding: 8px 4px; }
+      .schedule-table tbody td.col-time { width: 80px; min-width: 80px; font-size: 11px; padding: 8px 4px; }
+      
       .cell-content { padding: 3px; min-height: 52px; gap: 3px; }
       .course-card { padding: 4px 5px; font-size: 10px; }
       .person-badge { font-size: 9.5px; padding: 1px 4px; }
@@ -890,7 +908,6 @@
     <div class="header-container">
       <div class="header-top-row">
         <div class="tag-badge" id="todayDateBadge">
-          <!-- Populated by JS -->
           <span>📅 今日：加载中...</span>
         </div>
         <div class="tag-badge">
@@ -950,20 +967,7 @@
       </div>
     </div>
 
-    <!-- Mobile Swipe Hint -->
-    <div class="mobile-swipe-hint">
-      <span>👈</span> 左右滑动查看全周课表 · 下方进度条可无缝平移切换教学周 <span>👉</span>
-    </div>
-
-    <!-- Timetable Viewport (Seamless Pan Slider) -->
-    <div class="schedule-viewport" id="scheduleViewport">
-      <div class="schedule-track" id="scheduleTrack">
-        <div class="schedule-slide" id="slide0"></div>
-        <div class="schedule-slide" id="slide1" style="display: none;"></div>
-      </div>
-    </div>
-
-    <!-- Week Selector Bar & Range Slider (Placed Directly Below Timetable) -->
+    <!-- Week Selector Bar & Range Slider (Located Above Timetable) -->
     <div class="week-bar-container">
       <div class="week-slider-header">
         <div class="week-slider-title-group">
@@ -977,23 +981,33 @@
         </div>
       </div>
 
-      <!-- Drag Slider -->
+      <!-- Drag Slider (Continuous 1:1 Scrubbing) -->
       <div class="slider-wrapper">
         <div class="slider-track-container">
-          <input type="range" id="weekRangeSlider" min="3" max="16" step="1" value="3" class="week-range-slider" oninput="onSliderDrag(this.value)">
+          <input type="range" id="weekRangeSlider" min="0" max="10000" step="1" value="0" class="week-range-slider" oninput="onSliderDrag(this.value)">
           <div class="slider-marks">
-            <span>第3周 (开学)</span>
-            <span>第5周 (放假)</span>
-            <span>第10周 (补课)</span>
-            <span>第16周 (结课)</span>
+            <span style="position: absolute; left: 0;">第3周<span class="mark-sub"> (开学)</span></span>
+            <span style="position: absolute; left: 15.4%; transform: translateX(-50%);">第5周<span class="mark-sub"> (放假)</span></span>
+            <span style="position: absolute; left: 53.8%; transform: translateX(-50%);">第10周<span class="mark-sub"> (补课)</span></span>
+            <span style="position: absolute; right: 0;">第16周<span class="mark-sub"> (结课)</span></span>
           </div>
         </div>
       </div>
 
-      <!-- Week Chips (Scrollable horizontal list) -->
+      <!-- Week Chips (Image 1: Scrollable horizontal list) -->
       <div id="weekSelectorBar" class="week-chips-row">
         <!-- Dynamically populated from Week 3 to 16 -->
       </div>
+    </div>
+
+    <!-- Mobile Swipe Hint -->
+    <div class="mobile-swipe-hint">
+      <span>👈</span> 拖动上方进度条或横向平移查看全周课表 · 左侧节次已固定 <span>👉</span>
+    </div>
+
+    <!-- Continuous 14-Week Canvas Timetable -->
+    <div class="schedule-table-wrapper" id="scheduleWrapper">
+      <!-- Dynamically rendered full 14-week timetable -->
     </div>
 
     <!-- Color Legend -->
@@ -1079,14 +1093,11 @@
 
     // State Variables
     let currentSelectedWeek = getRealTimeInfo().displayWeek;
+    let currentDominantWeek = currentSelectedWeek;
     let isAdjustedMode = true;
     let currentViewMode = 'both'; // 'both' | 'boy' | 'girl'
     let currentSearchTerm = '';
-
-    let currentSlide = null;
-    let incomingSlide = null;
-    let isAnimating = false;
-    let animTimer = null;
+    let isUserDraggingSlider = false;
 
     function updateTodayHeaderBadge() {
       const info = getRealTimeInfo();
@@ -1175,7 +1186,7 @@
       return null;
     }
 
-    // Render Week Bar & Chips
+    // Render Week Bar & Chips (Image 1)
     function renderWeekBar() {
       const container = document.getElementById("weekSelectorBar");
       if (!container) return;
@@ -1186,6 +1197,7 @@
         const chip = document.createElement("button");
         const isActive = (w === currentSelectedWeek);
         chip.className = `week-chip ${isActive ? 'active' : ''} ${adjustmentWeeks.includes(w) ? 'has-adj' : ''}`;
+        chip.setAttribute("data-week", w);
         
         let label = `第${w}周`;
         if (w === realInfo.calculatedWeek) {
@@ -1201,7 +1213,7 @@
         }
 
         chip.innerHTML = label;
-        chip.onclick = () => selectWeek(w);
+        chip.onclick = () => scrollToWeek(w, true);
         container.appendChild(chip);
 
         if (isActive) {
@@ -1210,57 +1222,6 @@
           }, 30);
         }
       }
-    }
-
-    function syncSliderAndDisplay() {
-      const slider = document.getElementById("weekRangeSlider");
-      if (slider) slider.value = currentSelectedWeek;
-
-      const badge = document.getElementById("currentWeekDisplayBadge");
-      if (badge) {
-        const realInfo = getRealTimeInfo();
-        const w = currentSelectedWeek;
-        let tag = "";
-        if (w === realInfo.calculatedWeek) tag = " (当前)";
-        else if (w === 5) tag = " (放假)";
-        else if (w === 6) tag = " (返校)";
-        else if (w === 10) tag = " (大补课)";
-        else if (w === 16) tag = " (结课)";
-        badge.innerText = `第${w}周${tag}`;
-      }
-    }
-
-    function onSliderDrag(val) {
-      const w = parseInt(val, 10);
-      if (w !== currentSelectedWeek) {
-        const dir = w > currentSelectedWeek ? 1 : -1;
-        selectWeek(w, dir);
-      }
-    }
-
-    function stepWeek(delta) {
-      const target = Math.max(3, Math.min(16, currentSelectedWeek + delta));
-      if (target !== currentSelectedWeek) {
-        selectWeek(target, delta > 0 ? 1 : -1);
-      }
-    }
-
-    function jumpToCurrentWeek() {
-      const realInfo = getRealTimeInfo();
-      const target = realInfo.displayWeek;
-      if (target !== currentSelectedWeek) {
-        const dir = target > currentSelectedWeek ? 1 : -1;
-        selectWeek(target, dir);
-      }
-    }
-
-    function selectWeek(w, userDirection = null) {
-      if (w === currentSelectedWeek) return;
-      const dir = userDirection !== null ? userDirection : (w > currentSelectedWeek ? 1 : -1);
-      currentSelectedWeek = w;
-      syncSliderAndDisplay();
-      renderWeekBar();
-      renderScheduleTable(dir);
     }
 
     function setViewMode(mode) {
@@ -1309,19 +1270,30 @@
         }
       }
 
-      renderScheduleTable(null);
+      const wrapper = document.getElementById("scheduleWrapper");
+      const savedScroll = wrapper ? wrapper.scrollLeft : 0;
+      renderEntireSchedule();
+      if (wrapper) wrapper.scrollLeft = savedScroll;
     }
 
     function setScheduleMode(isAdj) {
       isAdjustedMode = isAdj;
       document.getElementById("btnModeAdjusted").className = `mode-btn ${isAdj ? 'active' : ''}`;
       document.getElementById("btnModeOriginal").className = `mode-btn ${!isAdj ? 'active' : ''}`;
-      renderScheduleTable(null);
+
+      const wrapper = document.getElementById("scheduleWrapper");
+      const savedScroll = wrapper ? wrapper.scrollLeft : 0;
+      renderEntireSchedule();
+      if (wrapper) wrapper.scrollLeft = savedScroll;
     }
 
     function filterCourses() {
       currentSearchTerm = document.getElementById("courseSearch").value.trim().toLowerCase();
-      renderScheduleTable(null);
+
+      const wrapper = document.getElementById("scheduleWrapper");
+      const savedScroll = wrapper ? wrapper.scrollLeft : 0;
+      renderEntireSchedule();
+      if (wrapper) wrapper.scrollLeft = savedScroll;
     }
 
     // Find course helper
@@ -1334,407 +1306,395 @@
       });
     }
 
-    // Generate complete table markup string for week w
-    function generateTableHTML(w) {
+    // Render Full 14-Week Continuous Canvas Schedule
+    function renderEntireSchedule() {
+      const wrapper = document.getElementById("scheduleWrapper");
+      if (!wrapper) return;
+
       const realInfo = getRealTimeInfo();
-      let html = '<div class="schedule-table-wrapper"><table class="schedule-table"><thead><tr>';
-      html += '<th class="col-time">节次 / 时间</th>';
+      let html = '<table class="schedule-table" id="scheduleTable"><thead>';
 
-      for (let d = 1; d <= 7; d++) {
-        const dateStr = getDateForWeekDay(w, d);
-        const shortDate = formatShortDate(dateStr);
-        const isToday = (w === realInfo.calculatedWeek && d === realInfo.dayOfWeek);
-        const adj = isAdjustedMode ? getAdjustmentDayMapping(w, d) : null;
-        let adjBadge = "";
-        if (adj) {
-          if (adj.type === "holiday") {
-            adjBadge = `<span style="display:block; font-size:11px; color:#ef4444; font-weight:normal;">[放假停课]</span>`;
-          } else if (adj.type === "makeup") {
-            adjBadge = `<span style="display:block; font-size:11px; color:#d97706; font-weight:normal;">[${adj.label}]</span>`;
+      // Row 1: Week Group Headers
+      html += '<tr>';
+      html += '<th rowspan="2" class="col-time">节次 / 时间</th>';
+
+      for (let w = 3; w <= 16; w++) {
+        const startDate = formatShortDate(getDateForWeekDay(w, 1));
+        const endDate = formatShortDate(getDateForWeekDay(w, 7));
+        const isCurrent = (w === realInfo.calculatedWeek);
+        const isHoliday = (w === 5);
+        const hasAdj = adjustmentWeeks.includes(w);
+
+        let tagText = "";
+        if (isCurrent) tagText = " · 当前周";
+        else if (w === 5) tagText = " · 国庆放假";
+        else if (w === 6) tagText = " · 返校补课";
+        else if (w === 10) tagText = " · 大补课周";
+        else if (w === 16) tagText = " · 结课周";
+
+        let weekClass = "th-week-group";
+        if (isCurrent) weekClass += " is-current";
+        else if (isHoliday) weekClass += " is-holiday";
+        else if (hasAdj) weekClass += " has-adj";
+
+        html += `<th colspan="7" class="${weekClass}" id="th-week-${w}" data-week="${w}">`;
+        html += `第${w}周（${startDate} - ${endDate}${tagText}）`;
+        html += `</th>`;
+      }
+      html += '</tr>';
+
+      // Row 2: Day Columns
+      html += '<tr>';
+      for (let w = 3; w <= 16; w++) {
+        for (let d = 1; d <= 7; d++) {
+          const dateStr = getDateForWeekDay(w, d);
+          const shortDate = formatShortDate(dateStr);
+          const isToday = (w === realInfo.calculatedWeek && d === realInfo.dayOfWeek);
+          const adj = isAdjustedMode ? getAdjustmentDayMapping(w, d) : null;
+
+          let adjBadge = "";
+          if (adj) {
+            if (adj.type === "holiday") {
+              adjBadge = '<span style="display:block; font-size:10.5px; color:#ef4444; font-weight:normal;">[放假停课]</span>';
+            } else if (adj.type === "makeup") {
+              adjBadge = `<span style="display:block; font-size:10.5px; color:#d97706; font-weight:normal;">[${adj.label}]</span>`;
+            }
           }
-        }
 
-        const todayTag = isToday ? ` <span class="today-pill-tag">今日</span>` : "";
-        const todayHeaderClass = isToday ? ' class="is-today-header"' : '';
-        html += `<th id="th-day-${d}"${todayHeaderClass}>${dayNames[d]}${todayTag}<span style="display:block; font-size:11px; color:#64748b; font-weight:normal; margin-top:2px;">${shortDate}</span>${adjBadge}</th>`;
+          const todayTag = isToday ? ' <span class="today-pill-tag">今日</span>' : '';
+          let thClass = "day-header-th";
+          if (d === 7) thClass += " week-end-day";
+          if (isToday) thClass += " is-today-header";
+
+          html += `<th class="${thClass}" data-week="${w}" data-day="${d}">`;
+          html += `${dayNames[d]}${todayTag}<span style="display:block; font-size:11px; color:#64748b; font-weight:normal; margin-top:2px;">${shortDate}</span>${adjBadge}`;
+          html += `</th>`;
+        }
       }
       html += '</tr></thead><tbody>';
 
-      // Rows for timeSlots
+      // Rows for Time Slots
       timeSlots.forEach(slot => {
         html += '<tr>';
         html += `<td class="col-time"><div>${slot.label}</div><span class="time-slot-sub">${slot.time}</span></td>`;
 
-        for (let d = 1; d <= 7; d++) {
-          const isToday = (w === realInfo.calculatedWeek && d === realInfo.dayOfWeek);
-          const tdClass = isToday ? ' class="is-today-col"' : '';
-          html += `<td${tdClass}><div class="cell-content">`;
+        for (let w = 3; w <= 16; w++) {
+          for (let d = 1; d <= 7; d++) {
+            const isToday = (w === realInfo.calculatedWeek && d === realInfo.dayOfWeek);
+            let tdClass = "day-cell";
+            if (d === 7) tdClass += " week-end-day";
+            if (isToday) tdClass += " is-today-col";
 
-          const adj = isAdjustedMode ? getAdjustmentDayMapping(w, d) : null;
+            html += `<td class="${tdClass}"><div class="cell-content">`;
 
-          // Holiday Handling
-          if (adj && adj.type === "holiday") {
-            html += `
-              <div class="holiday-cell">
-                <span style="font-size:18px;">🏖️</span>
-                <div style="font-weight:700; font-size:12px; color:#e11d48;">${adj.reason}</div>
-                <div style="font-size:11px; color:#64748b;">${adj.targetDesc}</div>
-              </div>
-            </div></td>`;
-            continue;
-          }
+            const adj = isAdjustedMode ? getAdjustmentDayMapping(w, d) : null;
 
-          // Compute target lookup week and day
-          let lookupWeek = w;
-          let lookupDay = d;
-
-          if (adj && adj.type === "makeup") {
-            lookupWeek = adj.sourceWeek;
-            lookupDay = adj.sourceDay;
-          }
-
-          // Confirmed logic for 2026-09-20 (Week 3 Sunday)
-          let boyItems = [];
-          let girlItems = [];
-
-          if (adj && adj.isW3Sunday) {
-            if (slot.id === "1-2") {
-              boyItems = [];
-              girlItems = [];
-            } else if (slot.id === "3-4") {
-              boyItems = [];
-              girlItems = [{
-                name: "领导力与应急管理",
-                teacher: "徐艺玲",
-                location: "J1-505",
-                isMakeup: true
-              }];
-            } else if (slot.id === "7-8") {
-              boyItems = [{
-                name: "数据采集与预处理",
-                teacher: "廖洪超",
-                location: "S5301智能算法基础实验室（8）",
-                isMakeup: true
-              }];
-              girlItems = [{
-                name: "申论（湾区治理主题）",
-                teacher: "何曼",
-                location: "J1-402",
-                isMakeup: true
-              }];
+            // Holiday Handling
+            if (adj && adj.type === "holiday") {
+              html += `
+                <div class="holiday-cell">
+                  <span style="font-size:18px;">🏖️</span>
+                  <div style="font-weight:700; font-size:12px; color:#e11d48;">${adj.reason}</div>
+                  <div style="font-size:11px; color:#64748b;">${adj.targetDesc}</div>
+                </div>
+              </div></td>`;
+              continue;
             }
-          } else {
-            boyItems = getCoursesForSlot(boyCourses, lookupWeek, lookupDay, slot.startSec, slot.endSec);
-            girlItems = getCoursesForSlot(girlCourses, lookupWeek, lookupDay, slot.startSec, slot.endSec);
-          }
 
-          // Search Filter applied
-          if (currentSearchTerm) {
-            boyItems = boyItems.filter(c => 
-              c.name.toLowerCase().includes(currentSearchTerm) ||
-              (c.teacher && c.teacher.toLowerCase().includes(currentSearchTerm)) ||
-              (c.location && c.location.toLowerCase().includes(currentSearchTerm)) ||
-              "叙礼".includes(currentSearchTerm)
-            );
-            girlItems = girlItems.filter(c => 
-              c.name.toLowerCase().includes(currentSearchTerm) ||
-              (c.teacher && c.teacher.toLowerCase().includes(currentSearchTerm)) ||
-              (c.location && c.location.toLowerCase().includes(currentSearchTerm)) ||
-              "嘉慧".includes(currentSearchTerm)
-            );
-          }
+            // Target lookup week and day
+            let lookupWeek = w;
+            let lookupDay = d;
 
-          const showBoy = (currentViewMode === "both" || currentViewMode === "boy");
-          const showGirl = (currentViewMode === "both" || currentViewMode === "girl");
+            if (adj && adj.type === "makeup") {
+              lookupWeek = adj.sourceWeek;
+              lookupDay = adj.sourceDay;
+            }
 
-          const hasBoy = boyItems.length > 0;
-          const hasGirl = girlItems.length > 0;
+            // Confirmed logic for 2026-09-20 (Week 3 Sunday)
+            let boyItems = [];
+            let girlItems = [];
 
-          // Render Cards
-          if (currentViewMode === "both") {
-            if (!hasBoy && !hasGirl) {
-              if (adj && adj.isW3Sunday && slot.id === "1-2") {
+            if (adj && adj.isW3Sunday) {
+              if (slot.id === "1-2") {
+                boyItems = [];
+                girlItems = [];
+              } else if (slot.id === "3-4") {
+                boyItems = [];
+                girlItems = [{
+                  name: "领导力与应急管理",
+                  teacher: "徐艺玲",
+                  location: "J1-505",
+                  isMakeup: true
+                }];
+              } else if (slot.id === "7-8") {
+                boyItems = [{
+                  name: "数据采集与预处理",
+                  teacher: "廖洪超",
+                  location: "S5301智能算法基础实验室（8）",
+                  isMakeup: true
+                }];
+                girlItems = [{
+                  name: "申论（湾区治理主题）",
+                  teacher: "何曼",
+                  location: "J1-402",
+                  isMakeup: true
+                }];
+              }
+            } else {
+              boyItems = getCoursesForSlot(boyCourses, lookupWeek, lookupDay, slot.startSec, slot.endSec);
+              girlItems = getCoursesForSlot(girlCourses, lookupWeek, lookupDay, slot.startSec, slot.endSec);
+            }
+
+            // Search Filter applied
+            if (currentSearchTerm) {
+              boyItems = boyItems.filter(c => 
+                c.name.toLowerCase().includes(currentSearchTerm) ||
+                (c.teacher && c.teacher.toLowerCase().includes(currentSearchTerm)) ||
+                (c.location && c.location.toLowerCase().includes(currentSearchTerm)) ||
+                "叙礼".includes(currentSearchTerm)
+              );
+              girlItems = girlItems.filter(c => 
+                c.name.toLowerCase().includes(currentSearchTerm) ||
+                (c.teacher && c.teacher.toLowerCase().includes(currentSearchTerm)) ||
+                (c.location && c.location.toLowerCase().includes(currentSearchTerm)) ||
+                "嘉慧".includes(currentSearchTerm)
+              );
+            }
+
+            const showBoy = (currentViewMode === "both" || currentViewMode === "boy");
+            const showGirl = (currentViewMode === "both" || currentViewMode === "girl");
+            const hasBoy = boyItems.length > 0;
+            const hasGirl = girlItems.length > 0;
+
+            // Render Cards
+            if (currentViewMode === "both") {
+              if (!hasBoy && !hasGirl) {
+                if (adj && adj.isW3Sunday && slot.id === "1-2") {
+                  html += `
+                    <div class="mutual-free-card" style="background:#fdf4ff; border-color:#f5d0fe; color:#86198f;">
+                      <div class="mutual-free-title">😴 调课无课</div>
+                      <div class="mutual-free-sub" style="color:#a21caf;">早晨两人均无课</div>
+                    </div>
+                  `;
+                } else {
+                  html += `
+                    <div class="mutual-free-card">
+                      <div class="mutual-free-title">✨ 共同空闲</div>
+                      <div class="mutual-free-sub">两人均无课</div>
+                    </div>
+                  `;
+                }
+              } else if (hasBoy && hasGirl) {
+                boyItems.forEach(c => {
+                  html += `
+                    <div class="course-card card-boy" title="${c.name}">
+                      <div class="busy-card-row">
+                        <span class="person-badge">👦 叙礼</span>
+                        <span class="busy-pill">${c.isMakeup ? '调补' : '有课'}</span>
+                      </div>
+                    </div>
+                  `;
+                });
+                girlItems.forEach(c => {
+                  html += `
+                    <div class="course-card card-girl" title="${c.name}">
+                      <div class="busy-card-row">
+                        <span class="person-badge">👧 嘉慧</span>
+                        <span class="busy-pill">${c.isMakeup ? '调补' : '有课'}</span>
+                      </div>
+                    </div>
+                  `;
+                });
+              } else if (hasBoy && !hasGirl) {
+                boyItems.forEach(c => {
+                  html += `
+                    <div class="course-card card-boy" title="${c.name}">
+                      <div class="busy-card-row">
+                        <span class="person-badge">👦 叙礼</span>
+                        <span class="busy-pill">${c.isMakeup ? '调补' : '有课'}</span>
+                      </div>
+                    </div>
+                  `;
+                });
                 html += `
-                  <div class="mutual-free-card" style="background:#fdf4ff; border-color:#f5d0fe; color:#86198f;">
-                    <div class="mutual-free-title">😴 调课无课</div>
-                    <div class="mutual-free-sub" style="color:#a21caf;">早晨两人均无课</div>
+                  <div class="partner-status-tag partner-girl-free">
+                    <span>👧</span> 嘉慧无课
                   </div>
                 `;
-              } else {
+              } else if (!hasBoy && hasGirl) {
+                girlItems.forEach(c => {
+                  html += `
+                    <div class="course-card card-girl" title="${c.name}">
+                      <div class="busy-card-row">
+                        <span class="person-badge">👧 嘉慧</span>
+                        <span class="busy-pill">${c.isMakeup ? '调补' : '有课'}</span>
+                      </div>
+                    </div>
+                  `;
+                });
                 html += `
-                  <div class="mutual-free-card">
-                    <div class="mutual-free-title">✨ 共同空闲</div>
-                    <div class="mutual-free-sub">两人均无课</div>
+                  <div class="partner-status-tag partner-boy-free">
+                    <span>👦</span> 叙礼无课
                   </div>
                 `;
               }
-            } else if (hasBoy && hasGirl) {
-              boyItems.forEach(c => {
-                html += `
-                  <div class="course-card card-boy" title="${c.name}">
-                    <div class="busy-card-row">
-                      <span class="person-badge">👦 叙礼</span>
-                      <span class="busy-pill">${c.isMakeup ? '调补' : '有课'}</span>
+            } else if (currentViewMode === "boy") {
+              if (hasBoy) {
+                boyItems.forEach(c => {
+                  html += `
+                    <div class="course-card card-boy" style="${boyItems.length === 1 ? 'height:100%;' : ''} display:flex; flex-direction:column; justify-content:center;">
+                      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
+                        <span class="person-badge">👦 叙礼</span>
+                        ${c.isMakeup ? '<span class="busy-pill">调补</span>' : ''}
+                      </div>
+                      <div class="course-name">${c.name}</div>
+                      ${c.location ? `<div class="course-detail"><span>📍</span> ${c.location}</div>` : ''}
+                      ${c.teacher ? `<div class="course-detail"><span>👤</span> ${c.teacher}</div>` : ''}
                     </div>
-                  </div>
-                `;
-              });
-              girlItems.forEach(c => {
-                html += `
-                  <div class="course-card card-girl" title="${c.name}">
-                    <div class="busy-card-row">
-                      <span class="person-badge">👧 嘉慧</span>
-                      <span class="busy-pill">${c.isMakeup ? '调补' : '有课'}</span>
+                  `;
+                });
+              } else {
+                html += `<div style="color:#94a3b8; font-size:12px; text-align:center; height:100%; display:flex; align-items:center; justify-content:center;">✨ 无课空闲</div>`;
+              }
+            } else if (currentViewMode === "girl") {
+              if (hasGirl) {
+                girlItems.forEach(c => {
+                  html += `
+                    <div class="course-card card-girl" style="${girlItems.length === 1 ? 'height:100%;' : ''} display:flex; flex-direction:column; justify-content:center;">
+                      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
+                        <span class="person-badge">👧 嘉慧</span>
+                        ${c.isMakeup ? '<span class="busy-pill">调补</span>' : ''}
+                      </div>
+                      <div class="course-name">${c.name}</div>
+                      ${c.location ? `<div class="course-detail"><span>📍</span> ${c.location}</div>` : ''}
+                      ${c.teacher ? `<div class="course-detail"><span>👤</span> ${c.teacher}</div>` : ''}
                     </div>
-                  </div>
-                `;
-              });
-            } else if (hasBoy && !hasGirl) {
-              boyItems.forEach(c => {
-                html += `
-                  <div class="course-card card-boy" title="${c.name}">
-                    <div class="busy-card-row">
-                      <span class="person-badge">👦 叙礼</span>
-                      <span class="busy-pill">${c.isMakeup ? '调补' : '有课'}</span>
-                    </div>
-                  </div>
-                `;
-              });
-              html += `
-                <div class="partner-status-tag partner-girl-free">
-                  <span>👧</span> 嘉慧无课
-                </div>
-              `;
-            } else if (!hasBoy && hasGirl) {
-              girlItems.forEach(c => {
-                html += `
-                  <div class="course-card card-girl" title="${c.name}">
-                    <div class="busy-card-row">
-                      <span class="person-badge">👧 嘉慧</span>
-                      <span class="busy-pill">${c.isMakeup ? '调补' : '有课'}</span>
-                    </div>
-                  </div>
-                `;
-              });
-              html += `
-                <div class="partner-status-tag partner-boy-free">
-                  <span>👦</span> 叙礼无课
-                </div>
-              `;
+                  `;
+                });
+              } else {
+                html += `<div style="color:#94a3b8; font-size:12px; text-align:center; height:100%; display:flex; align-items:center; justify-content:center;">✨ 无课空闲</div>`;
+              }
             }
-          } else if (currentViewMode === "boy") {
-            if (hasBoy) {
-              boyItems.forEach(c => {
-                html += `
-                  <div class="course-card card-boy" style="${boyItems.length === 1 ? 'height:100%;' : ''} display:flex; flex-direction:column; justify-content:center;">
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
-                      <span class="person-badge">👦 叙礼</span>
-                      ${c.isMakeup ? '<span class="busy-pill">调补</span>' : ''}
-                    </div>
-                    <div class="course-name">${c.name}</div>
-                    ${c.location ? `<div class="course-detail"><span>📍</span> ${c.location}</div>` : ''}
-                    ${c.teacher ? `<div class="course-detail"><span>👤</span> ${c.teacher}</div>` : ''}
-                  </div>
-                `;
-              });
-            } else {
-              html += `<div style="color:#94a3b8; font-size:12px; text-align:center; height:100%; display:flex; align-items:center; justify-content:center;">✨ 无课空闲</div>`;
-            }
-          } else if (currentViewMode === "girl") {
-            if (hasGirl) {
-              girlItems.forEach(c => {
-                html += `
-                  <div class="course-card card-girl" style="${girlItems.length === 1 ? 'height:100%;' : ''} display:flex; flex-direction:column; justify-content:center;">
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
-                      <span class="person-badge">👧 嘉慧</span>
-                      ${c.isMakeup ? '<span class="busy-pill">调补</span>' : ''}
-                    </div>
-                    <div class="course-name">${c.name}</div>
-                    ${c.location ? `<div class="course-detail"><span>📍</span> ${c.location}</div>` : ''}
-                    ${c.teacher ? `<div class="course-detail"><span>👤</span> ${c.teacher}</div>` : ''}
-                  </div>
-                `;
-              });
-            } else {
-              html += `<div style="color:#94a3b8; font-size:12px; text-align:center; height:100%; display:flex; align-items:center; justify-content:center;">✨ 无课空闲</div>`;
-            }
-          }
 
-          html += '</div></td>';
+            html += '</div></td>';
+          }
         }
         html += '</tr>';
       });
 
-      html += '</tbody></table></div>';
-      return html;
+      html += '</tbody></table>';
+      wrapper.innerHTML = html;
     }
 
-    // Finish any ongoing slide animation cleanly
-    function finishAnimationImmediately() {
-      if (!isAnimating) return;
-      if (animTimer) {
-        clearTimeout(animTimer);
-        animTimer = null;
-      }
-      const track = document.getElementById("scheduleTrack");
-      if (!track || !currentSlide || !incomingSlide) return;
-
-      track.style.transition = "none";
-      track.style.transform = "translateX(0%)";
-      track.style.width = "100%";
-
-      track.innerHTML = "";
-      track.appendChild(currentSlide);
-      track.appendChild(incomingSlide);
-
-      incomingSlide.innerHTML = "";
-      incomingSlide.style.display = "none";
-      isAnimating = false;
-    }
-
-    // Main Timetable Rendering with Seamless Pan Animation
-    function renderScheduleTable(direction = null) {
-      if (!currentSlide || !incomingSlide) {
-        currentSlide = document.getElementById("slide0");
-        incomingSlide = document.getElementById("slide1");
-      }
-      const track = document.getElementById("scheduleTrack");
-      if (!track || !currentSlide || !incomingSlide) return;
-
-      // Instant render for initial load, viewmode change, mode toggle, or search
-      if (direction === null || !currentSlide.innerHTML.trim()) {
-        finishAnimationImmediately();
-        currentSlide.innerHTML = generateTableHTML(currentSelectedWeek);
-        return;
-      }
-
-      // Finish previous transition if running
-      finishAnimationImmediately();
-      isAnimating = true;
-
-      // Preserve active table's horizontal scroll offset
-      const oldWrapper = currentSlide.querySelector(".schedule-table-wrapper");
-      const currentScrollLeft = oldWrapper ? oldWrapper.scrollLeft : 0;
-
-      // Populate incoming slide with target week table
-      incomingSlide.innerHTML = generateTableHTML(currentSelectedWeek);
-      incomingSlide.style.display = "block";
-      const newWrapper = incomingSlide.querySelector(".schedule-table-wrapper");
-      if (newWrapper) {
-        newWrapper.scrollLeft = currentScrollLeft;
-      }
-
-      track.style.width = "200%";
-
-      if (direction > 0) {
-        // Moving to next week: Slide Left (currentSlide -> incomingSlide)
-        track.innerHTML = "";
-        track.appendChild(currentSlide);
-        track.appendChild(incomingSlide);
-
-        track.style.transition = "none";
-        track.style.transform = "translateX(0%)";
-        void track.offsetWidth; // Force layout reflow
-
-        track.style.transition = "transform 320ms cubic-bezier(0.25, 1, 0.5, 1)";
-        track.style.transform = "translateX(-50%)";
-      } else {
-        // Moving to previous week: Slide Right (incomingSlide -> currentSlide)
-        track.innerHTML = "";
-        track.appendChild(incomingSlide);
-        track.appendChild(currentSlide);
-
-        track.style.transition = "none";
-        track.style.transform = "translateX(-50%)";
-        void track.offsetWidth; // Force layout reflow
-
-        track.style.transition = "transform 320ms cubic-bezier(0.25, 1, 0.5, 1)";
-        track.style.transform = "translateX(0%)";
-      }
-
-      animTimer = setTimeout(() => {
-        // Transition finished: reset track and swap slides seamlessly
-        track.style.transition = "none";
-        track.style.transform = "translateX(0%)";
-        track.style.width = "100%";
-
-        const temp = currentSlide;
-        currentSlide = incomingSlide;
-        incomingSlide = temp;
-
-        track.innerHTML = "";
-        track.appendChild(currentSlide);
-        track.appendChild(incomingSlide);
-
-        incomingSlide.innerHTML = "";
-        incomingSlide.style.display = "none";
-
-        // Restore horizontal scroll position
-        const finalWrapper = currentSlide.querySelector(".schedule-table-wrapper");
-        if (finalWrapper) {
-          finalWrapper.scrollLeft = currentScrollLeft;
-        }
-
-        isAnimating = false;
-        animTimer = null;
-      }, 330);
-    }
-
-    // Touch Swipe Gesture Support
-    function setupTouchGestures() {
-      const vp = document.getElementById("scheduleViewport");
-      const weekBar = document.querySelector(".week-bar-container");
-
-      let touchStartX = 0;
-      let touchStartY = 0;
-      let touchStartTime = 0;
-
-      function handleTouchStart(e) {
-        if (e.touches.length === 1) {
-          touchStartX = e.touches[0].clientX;
-          touchStartY = e.touches[0].clientY;
-          touchStartTime = Date.now();
+    // Scroll directly to target week start (smooth optional)
+    function scrollToWeek(targetWeek, smooth = true) {
+      const wrapper = document.getElementById("scheduleWrapper");
+      const targetEl = document.getElementById(`th-week-${targetWeek}`);
+      if (wrapper && targetEl) {
+        const stickyEl = document.querySelector(".schedule-table thead th.col-time");
+        const stickyWidth = stickyEl ? stickyEl.offsetWidth : 110;
+        const targetLeft = Math.max(0, targetEl.offsetLeft - stickyWidth);
+        if (smooth) {
+          wrapper.scrollTo({ left: targetLeft, behavior: 'smooth' });
+        } else {
+          wrapper.scrollLeft = targetLeft;
         }
       }
+    }
 
-      function handleTouchEnd(e, isViewport) {
-        if (e.changedTouches.length !== 1) return;
-        const deltaX = e.changedTouches[0].clientX - touchStartX;
-        const deltaY = e.changedTouches[0].clientY - touchStartY;
-        const deltaTime = Date.now() - touchStartTime;
+    // Step Week
+    function stepWeek(delta) {
+      const target = Math.max(3, Math.min(16, currentDominantWeek + delta));
+      scrollToWeek(target, true);
+    }
 
-        if (Math.abs(deltaX) >= 45 && Math.abs(deltaX) > Math.abs(deltaY) * 1.3 && deltaTime < 500) {
-          if (isViewport) {
-            const wrapper = currentSlide ? currentSlide.querySelector(".schedule-table-wrapper") : null;
-            if (wrapper) {
-              const isAtLeft = wrapper.scrollLeft <= 10;
-              const isAtRight = (wrapper.scrollLeft + wrapper.clientWidth) >= (wrapper.scrollWidth - 10);
+    // Jump to current real-time week
+    function jumpToCurrentWeek() {
+      const realInfo = getRealTimeInfo();
+      scrollToWeek(realInfo.displayWeek, true);
+    }
 
-              if (deltaX > 0 && isAtLeft) {
-                stepWeek(-1);
-              } else if (deltaX < 0 && isAtRight) {
-                stepWeek(1);
-              }
-            }
+    // Slider Drag (1:1 continuous scrubbing - moves with slider, NO snapping on release)
+    function onSliderDrag(val) {
+      isUserDraggingSlider = true;
+      const wrapper = document.getElementById("scheduleWrapper");
+      if (!wrapper) return;
+      const maxScroll = wrapper.scrollWidth - wrapper.clientWidth;
+      if (maxScroll > 0) {
+        wrapper.scrollLeft = (parseFloat(val) / 10000) * maxScroll;
+      }
+      updateActiveWeekFromScroll();
+    }
+
+    // Update active week indicator & badge from scroll position
+    function updateActiveWeekFromScroll() {
+      const wrapper = document.getElementById("scheduleWrapper");
+      if (!wrapper) return;
+
+      const stickyEl = document.querySelector(".schedule-table thead th.col-time");
+      const stickyWidth = stickyEl ? stickyEl.offsetWidth : 110;
+      const viewLeft = wrapper.scrollLeft + stickyWidth + 30;
+
+      const weekEls = document.querySelectorAll(".th-week-group");
+      let foundWeek = 3;
+
+      weekEls.forEach(el => {
+        const w = parseInt(el.getAttribute("data-week"), 10);
+        if (el.offsetLeft <= viewLeft) {
+          foundWeek = w;
+        }
+      });
+
+      if (foundWeek !== currentDominantWeek) {
+        currentDominantWeek = foundWeek;
+        currentSelectedWeek = foundWeek;
+
+        // Update badge text
+        const badge = document.getElementById("currentWeekDisplayBadge");
+        if (badge) {
+          const realInfo = getRealTimeInfo();
+          let tag = "";
+          if (foundWeek === realInfo.calculatedWeek) tag = " (当前)";
+          else if (foundWeek === 5) tag = " (放假)";
+          else if (foundWeek === 6) tag = " (返校)";
+          else if (foundWeek === 10) tag = " (大补课)";
+          else if (foundWeek === 16) tag = " (结课)";
+          badge.innerText = `第${foundWeek}周${tag}`;
+        }
+
+        // Update active week chip
+        const chips = document.querySelectorAll(".week-chip");
+        chips.forEach(chip => {
+          const chipWeek = parseInt(chip.getAttribute("data-week"), 10);
+          if (chipWeek === foundWeek) {
+            chip.classList.add("active");
+            chip.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
           } else {
-            if (deltaX > 0) {
-              stepWeek(-1);
-            } else {
-              stepWeek(1);
-            }
+            chip.classList.remove("active");
           }
+        });
+      }
+    }
+
+    function setupSliderAndScrollSync() {
+      const wrapper = document.getElementById("scheduleWrapper");
+      const slider = document.getElementById("weekRangeSlider");
+      if (!wrapper || !slider) return;
+
+      slider.addEventListener("change", () => {
+        isUserDraggingSlider = false;
+      });
+
+      // Synchronize slider position when user scrolls the timetable directly
+      wrapper.addEventListener("scroll", () => {
+        if (!isUserDraggingSlider) {
+          const maxScroll = wrapper.scrollWidth - wrapper.clientWidth;
+          if (maxScroll > 0) {
+            slider.value = Math.round((wrapper.scrollLeft / maxScroll) * 10000);
+          }
+          updateActiveWeekFromScroll();
         }
-      }
-
-      if (vp) {
-        vp.addEventListener("touchstart", handleTouchStart, { passive: true });
-        vp.addEventListener("touchend", (e) => handleTouchEnd(e, true), { passive: true });
-      }
-
-      if (weekBar) {
-        weekBar.addEventListener("touchstart", handleTouchStart, { passive: true });
-        weekBar.addEventListener("touchend", (e) => handleTouchEnd(e, false), { passive: true });
-      }
+      }, { passive: true });
     }
 
     // Easter Egg Data & Logic
@@ -1774,13 +1734,15 @@
     }
 
     window.addEventListener("DOMContentLoaded", () => {
-      currentSlide = document.getElementById("slide0");
-      incomingSlide = document.getElementById("slide1");
       updateTodayHeaderBadge();
-      syncSliderAndDisplay();
       renderWeekBar();
-      renderScheduleTable(null);
-      setupTouchGestures();
+      renderEntireSchedule();
+      setupSliderAndScrollSync();
+
+      // Scroll to current calculated week (e.g. Week 3) on load
+      setTimeout(() => {
+        scrollToWeek(currentSelectedWeek, false);
+      }, 50);
     });
   </script>
 </body>
