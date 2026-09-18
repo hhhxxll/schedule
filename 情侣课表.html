@@ -99,6 +99,16 @@
       transition: all 0.2s ease;
     }
 
+    .today-time {
+      font-variant-numeric: tabular-nums;
+      font-feature-settings: "tnum";
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "PingFang SC", monospace;
+      font-weight: 800;
+      color: #4f46e5;
+      letter-spacing: 0.5px;
+      margin: 0 2px;
+    }
+
     /* Container */
     .container {
       max-width: 1360px;
@@ -818,8 +828,20 @@
     /* Mobile Media Queries */
     @media (max-width: 768px) {
       header { padding: 12px 0; }
-      .header-container { padding: 0 14px; }
-      .today-hero-badge { font-size: 15.5px; padding: 7px 16px; width: 100%; justify-content: center; text-align: center; }
+      .header-container { padding: 0 12px; }
+      .today-hero-badge {
+        font-size: 14.5px;
+        padding: 7px 12px;
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+        flex-wrap: wrap;
+        letter-spacing: -0.02em;
+      }
+      .today-time {
+        font-size: 14px;
+        margin: 0 2px;
+      }
       .container { padding: 0 10px; margin-top: 14px; }
       .week-bar-container { padding: 12px 14px; gap: 10px; margin-bottom: 12px; }
       .week-slider-header { gap: 6px; }
@@ -970,6 +992,10 @@
       if (calculatedWeek < 3) displayWeek = 3;
       if (calculatedWeek > 16) displayWeek = 16;
 
+      const hh = String(now.getHours()).padStart(2, '0');
+      const mm = String(now.getMinutes()).padStart(2, '0');
+      const ss = String(now.getSeconds()).padStart(2, '0');
+
       return {
         now: now,
         year: now.getFullYear(),
@@ -977,7 +1003,8 @@
         date: now.getDate(),
         dayOfWeek: dayOfWeek,
         calculatedWeek: calculatedWeek,
-        displayWeek: displayWeek
+        displayWeek: displayWeek,
+        timeStr: `${hh}:${mm}:${ss}`
       };
     }
 
@@ -999,7 +1026,7 @@
         } else {
           weekDesc = `（${dayNames[info.dayOfWeek]}）`;
         }
-        badge.innerHTML = `<span>📅 今日：${info.year}年${info.month}月${info.date}日 ${weekDesc}</span>`;
+        badge.innerHTML = `<span>📅 今日：${info.year}年${info.month}月${info.date}日 <span class="today-time">${info.timeStr}</span> ${weekDesc}</span>`;
       }
     }
 
@@ -1606,6 +1633,7 @@
 
     window.addEventListener("DOMContentLoaded", () => {
       updateTodayHeaderBadge();
+      setInterval(updateTodayHeaderBadge, 1000);
       renderWeekBar();
       renderEntireSchedule();
       setupScrollSync();
