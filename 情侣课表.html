@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>2026秋季学期 · 双人课程表</title>
+  <title>2026秋季学期</title>
   <style>
     :root {
       --boy-primary: #0284c7;
@@ -166,18 +166,31 @@
       z-index: 10;
     }
 
-    /* Week Selector Bar */
+    /* Week Selector Bar & Range Slider */
     .week-bar-container {
       background: #ffffff;
       border-radius: var(--radius-md);
-      padding: 12px 18px;
+      padding: 16px 20px;
       border: 1px solid #f1f5f9;
       box-shadow: var(--shadow-sm);
       margin-bottom: 18px;
       display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .week-slider-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .week-slider-title-group {
+      display: flex;
       align-items: center;
       gap: 10px;
-      overflow-x: auto;
     }
 
     .week-bar-title {
@@ -185,25 +198,151 @@
       font-weight: 700;
       color: #6366f1;
       text-transform: uppercase;
-      margin-right: 6px;
-      flex-shrink: 0;
       display: flex;
       align-items: center;
       gap: 4px;
     }
 
+    .week-active-badge {
+      background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: var(--radius-pill);
+      box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+      letter-spacing: 0.02em;
+    }
+
+    .week-quick-nav {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .week-nav-btn {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      color: #475569;
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 11px;
+      transition: all 0.2s;
+    }
+    .week-nav-btn:hover {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+      color: #0f172a;
+    }
+
+    .week-today-btn {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      color: #16a34a;
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .week-today-btn:hover {
+      background: #dcfce7;
+      border-color: #86efac;
+    }
+
+    /* Slider Track & Thumb Styling */
+    .slider-wrapper {
+      padding: 2px 2px 4px 2px;
+    }
+
+    .slider-track-container {
+      position: relative;
+      width: 100%;
+    }
+
+    .week-range-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 8px;
+      border-radius: 6px;
+      background: linear-gradient(to right, #38bdf8 0%, #818cf8 50%, #f43f5e 100%);
+      outline: none;
+      cursor: pointer;
+      margin: 6px 0 4px 0;
+      transition: opacity 0.2s;
+    }
+
+    .week-range-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 3.5px solid #6366f1;
+      box-shadow: 0 2px 8px rgba(99, 102, 241, 0.4);
+      cursor: grab;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .week-range-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.15);
+      box-shadow: 0 3px 12px rgba(99, 102, 241, 0.55);
+    }
+
+    .week-range-slider::-webkit-slider-thumb:active {
+      cursor: grabbing;
+      transform: scale(1.22);
+      border-color: #ec4899;
+    }
+
+    .week-range-slider::-moz-range-thumb {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 3.5px solid #6366f1;
+      box-shadow: 0 2px 8px rgba(99, 102, 241, 0.4);
+      cursor: grab;
+    }
+
+    .slider-marks {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: #94a3b8;
+      margin-top: 2px;
+      padding: 0 2px;
+    }
+
+    .week-chips-row {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: thin;
+    }
+
     .week-chip {
-      padding: 7px 16px;
+      padding: 6px 14px;
       border-radius: var(--radius-pill);
       border: 1px solid #f1f5f9;
       background: #ffffff;
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: 600;
       color: #475569;
       cursor: pointer;
       white-space: nowrap;
       transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
       box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+      flex-shrink: 0;
     }
     .week-chip:hover {
       background: #f8fafc;
@@ -711,6 +850,12 @@
       h1 { font-size: 22px; }
       .title-icon { font-size: 22px; }
       .container { padding: 0 10px; margin-top: 14px; }
+      .week-bar-container { padding: 12px 14px; gap: 10px; }
+      .week-slider-header { gap: 6px; }
+      .week-active-badge { font-size: 11px; padding: 2px 8px; }
+      .week-today-btn { font-size: 10.5px; padding: 2px 7px; }
+      .week-nav-btn { width: 26px; height: 26px; font-size: 10px; }
+      .slider-marks { font-size: 10px; }
       .mobile-swipe-hint { display: block; }
       .schedule-controls { flex-direction: column; align-items: stretch; gap: 10px; }
       .search-wrapper { max-width: 100%; min-width: 100%; }
@@ -744,7 +889,7 @@
         <div>
           <h1>
             <span class="title-icon">📅</span>
-            <span class="title-text">2026秋季学期 · 双人课程表</span>
+            <span class="title-text">2026秋季学期</span>
           </h1>
           <div class="sub-title">
             <span>第3至16周动态日程</span>
@@ -759,10 +904,35 @@
   <!-- Main Container -->
   <div class="container">
 
-    <!-- Week Selector Bar -->
+    <!-- Week Selector Bar & Range Slider -->
     <div class="week-bar-container">
-      <span class="week-bar-title">🌸 教学周</span>
-      <div id="weekSelectorBar" style="display: flex; gap: 8px;">
+      <div class="week-slider-header">
+        <div class="week-slider-title-group">
+          <span class="week-bar-title">🌸 教学周进度</span>
+          <span id="currentWeekDisplayBadge" class="week-active-badge">第3周 (当前)</span>
+        </div>
+        <div class="week-quick-nav">
+          <button type="button" class="week-nav-btn" onclick="stepWeek(-1)" title="上一周">◀</button>
+          <button type="button" class="week-today-btn" onclick="jumpToCurrentWeek()" title="回到当前教学周">⚡ 回本周</button>
+          <button type="button" class="week-nav-btn" onclick="stepWeek(1)" title="下一周">▶</button>
+        </div>
+      </div>
+
+      <!-- Drag Slider -->
+      <div class="slider-wrapper">
+        <div class="slider-track-container">
+          <input type="range" id="weekRangeSlider" min="3" max="16" step="1" value="3" class="week-range-slider" oninput="onSliderDrag(this.value)">
+          <div class="slider-marks">
+            <span>第3周 (开学)</span>
+            <span>第5周 (放假)</span>
+            <span>第10周 (补课)</span>
+            <span>第16周 (结课)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Week Chips (Scrollable horizontal list) -->
+      <div id="weekSelectorBar" class="week-chips-row">
         <!-- Dynamically populated from Week 3 to 16 -->
       </div>
     </div>
@@ -995,15 +1165,17 @@
       return null;
     }
 
-    // Render Week Bar
+    // Render Week Bar & Chips
     function renderWeekBar() {
       const container = document.getElementById("weekSelectorBar");
+      if (!container) return;
       container.innerHTML = "";
       const realInfo = getRealTimeInfo();
 
       for (let w = 3; w <= 16; w++) {
         const chip = document.createElement("button");
-        chip.className = `week-chip ${w === currentSelectedWeek ? 'active' : ''} ${adjustmentWeeks.includes(w) ? 'has-adj' : ''}`;
+        const isActive = (w === currentSelectedWeek);
+        chip.className = `week-chip ${isActive ? 'active' : ''} ${adjustmentWeeks.includes(w) ? 'has-adj' : ''}`;
         
         let label = `第${w}周`;
         if (w === realInfo.calculatedWeek) {
@@ -1021,11 +1193,56 @@
         chip.innerHTML = label;
         chip.onclick = () => selectWeek(w);
         container.appendChild(chip);
+
+        if (isActive) {
+          setTimeout(() => {
+            chip.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+          }, 30);
+        }
       }
+    }
+
+    function syncSliderAndDisplay() {
+      const slider = document.getElementById("weekRangeSlider");
+      if (slider) slider.value = currentSelectedWeek;
+
+      const badge = document.getElementById("currentWeekDisplayBadge");
+      if (badge) {
+        const realInfo = getRealTimeInfo();
+        const w = currentSelectedWeek;
+        let tag = "";
+        if (w === realInfo.calculatedWeek) tag = " (当前)";
+        else if (w === 5) tag = " (放假)";
+        else if (w === 6) tag = " (返校)";
+        else if (w === 10) tag = " (大补课)";
+        else if (w === 16) tag = " (结课)";
+        badge.innerText = `第${w}周${tag}`;
+      }
+    }
+
+    function onSliderDrag(val) {
+      const w = parseInt(val, 10);
+      if (w !== currentSelectedWeek) {
+        currentSelectedWeek = w;
+        syncSliderAndDisplay();
+        renderWeekBar();
+        renderScheduleTable();
+      }
+    }
+
+    function stepWeek(delta) {
+      const target = Math.max(3, Math.min(16, currentSelectedWeek + delta));
+      selectWeek(target);
+    }
+
+    function jumpToCurrentWeek() {
+      const realInfo = getRealTimeInfo();
+      selectWeek(realInfo.displayWeek);
     }
 
     function selectWeek(w) {
       currentSelectedWeek = w;
+      syncSliderAndDisplay();
       renderWeekBar();
       renderScheduleTable();
     }
@@ -1402,6 +1619,7 @@
 
     window.addEventListener("DOMContentLoaded", () => {
       updateTodayHeaderBadge();
+      syncSliderAndDisplay();
       renderWeekBar();
       renderScheduleTable();
     });
