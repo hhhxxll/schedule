@@ -646,6 +646,71 @@
       display: inline-block;
     }
 
+    /* Makeup & Holiday Eye-Catching Highlights */
+    .is-makeup-header {
+      background: linear-gradient(180deg, #fff7ed 0%, #ffedd5 100%) !important;
+      color: #9a3412 !important;
+      border-top: 3px solid #f97316 !important;
+    }
+    .is-makeup-col {
+      background-color: rgba(249, 115, 22, 0.04) !important;
+    }
+    .makeup-pill-tag {
+      background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+      color: #ffffff;
+      font-size: 10.5px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 12px;
+      margin-top: 3px;
+      display: inline-block;
+      box-shadow: 0 2px 6px rgba(234, 88, 12, 0.35);
+      letter-spacing: 0.02em;
+    }
+
+    .is-holiday-header {
+      background: linear-gradient(180deg, #fff1f2 0%, #ffe4e6 100%) !important;
+      color: #9f1239 !important;
+      border-top: 3px solid #f43f5e !important;
+    }
+    .is-holiday-col {
+      background-color: rgba(244, 63, 94, 0.03) !important;
+    }
+    .holiday-pill-tag {
+      background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
+      color: #ffffff;
+      font-size: 10.5px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 12px;
+      margin-top: 3px;
+      display: inline-block;
+      box-shadow: 0 2px 6px rgba(225, 29, 72, 0.35);
+      letter-spacing: 0.02em;
+    }
+
+    /* Makeup Course Badge & Card Highlights */
+    .makeup-badge {
+      background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+      color: #ffffff !important;
+      font-size: 10.5px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      box-shadow: 0 2px 8px rgba(234, 88, 12, 0.45);
+      letter-spacing: 0.02em;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .card-has-makeup {
+      border: 1.5px solid #fdba74 !important;
+      border-left: 4px solid #f97316 !important;
+      box-shadow: 0 3px 12px rgba(249, 115, 22, 0.2) !important;
+      background: #fffbf5 !important;
+    }
+
     /* Timetable Cell Structure */
     .cell-content {
       padding: 4px;
@@ -1003,6 +1068,10 @@
         👧 嘉慧有课
       </div>
       <div style="display: flex; align-items: center; gap: 6px;">
+        <span class="makeup-badge" style="font-size: 10px; padding: 1px 7px;">⚡ 调补</span>
+        调课补课
+      </div>
+      <div style="display: flex; align-items: center; gap: 6px;">
         <span style="width: 12px; height: 12px; background: #fef08a; border: 1px solid #eab308; border-radius: 3px; display: inline-block;"></span>
         ✨ 共同空闲
       </div>
@@ -1225,6 +1294,10 @@
               👧 嘉慧有课
             </div>
             <div style="display: flex; align-items: center; gap: 6px;">
+              <span class="makeup-badge" style="font-size: 10px; padding: 1px 7px;">⚡ 调补</span>
+              调课补课
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px;">
               <span style="width: 12px; height: 12px; background: #fef08a; border: 1px solid #eab308; border-radius: 3px; display: inline-block;"></span>
               ✨ 共同空闲
             </div>
@@ -1236,6 +1309,10 @@
               👦 叙礼课程（完整显示课名、教室、老师）
             </div>
             <div style="display: flex; align-items: center; gap: 6px;">
+              <span class="makeup-badge" style="font-size: 10px; padding: 1px 7px;">⚡ 调补</span>
+              调课补课
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px;">
               <span style="color: #94a3b8;">✨ 无课空闲</span>
             </div>
           `;
@@ -1244,6 +1321,10 @@
             <div style="display: flex; align-items: center; gap: 6px;">
               <span style="width: 12px; height: 12px; background: #f43f5e; border-radius: 3px; display: inline-block;"></span>
               👧 嘉慧课程（完整显示课名、教室、老师）
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span class="makeup-badge" style="font-size: 10px; padding: 1px 7px;">⚡ 调补</span>
+              调课补课
             </div>
             <div style="display: flex; align-items: center; gap: 6px;">
               <span style="color: #94a3b8;">✨ 无课空闲</span>
@@ -1335,21 +1416,24 @@
           const adj = isAdjustedMode ? getAdjustmentDayMapping(w, d) : null;
 
           let adjBadge = "";
-          if (adj) {
-            if (adj.type === "holiday") {
-              adjBadge = '<span style="display:block; font-size:10.5px; color:#ef4444; font-weight:normal;">[放假停课]</span>';
-            } else if (adj.type === "makeup") {
-              adjBadge = `<span style="display:block; font-size:10.5px; color:#d97706; font-weight:normal;">[${adj.label}]</span>`;
-            }
-          }
-
-          const todayTag = isToday ? ' <span class="today-pill-tag">今日</span>' : '';
           let thClass = "day-header-th";
           if (d === 7) thClass += " week-end-day";
           if (isToday) thClass += " is-today-header";
 
+          if (adj) {
+            if (adj.type === "holiday") {
+              adjBadge = '<span class="holiday-pill-tag">🏖️ 放假停课</span>';
+              thClass += " is-holiday-header";
+            } else if (adj.type === "makeup") {
+              adjBadge = `<span class="makeup-pill-tag">⚡ ${adj.label}</span>`;
+              thClass += " is-makeup-header";
+            }
+          }
+
+          const todayTag = isToday ? ' <span class="today-pill-tag">今日</span>' : '';
+
           html += `<th class="${thClass}" data-week="${w}" data-day="${d}">`;
-          html += `${dayNames[d]}${todayTag}<span style="display:block; font-size:11px; color:#64748b; font-weight:normal; margin-top:2px;">${shortDate}</span>${adjBadge}`;
+          html += `${dayNames[d]}${todayTag}<span style="display:block; font-size:11px; color:#64748b; font-weight:normal; margin-top:2px;">${shortDate}</span>${adjBadge ? '<div style="margin-top:2px;">' + adjBadge + '</div>' : ''}`;
           html += `</th>`;
         }
       }
@@ -1363,13 +1447,15 @@
         for (let w = 3; w <= 16; w++) {
           for (let d = 1; d <= 7; d++) {
             const isToday = (w === realInfo.calculatedWeek && d === realInfo.dayOfWeek);
+            const adj = isAdjustedMode ? getAdjustmentDayMapping(w, d) : null;
+
             let tdClass = "day-cell";
             if (d === 7) tdClass += " week-end-day";
             if (isToday) tdClass += " is-today-col";
+            if (adj && adj.type === "makeup") tdClass += " is-makeup-col";
+            if (adj && adj.type === "holiday") tdClass += " is-holiday-col";
 
             html += `<td class="${tdClass}"><div class="cell-content">`;
-
-            const adj = isAdjustedMode ? getAdjustmentDayMapping(w, d) : null;
 
             // Holiday Handling
             if (adj && adj.type === "holiday") {
@@ -1425,6 +1511,10 @@
             } else {
               boyItems = getCoursesForSlot(boyCourses, lookupWeek, lookupDay, slot.startSec, slot.endSec);
               girlItems = getCoursesForSlot(girlCourses, lookupWeek, lookupDay, slot.startSec, slot.endSec);
+              if (adj && adj.type === "makeup") {
+                boyItems = boyItems.map(c => ({ ...c, isMakeup: true }));
+                girlItems = girlItems.map(c => ({ ...c, isMakeup: true }));
+              }
             }
 
             // Search Filter applied
@@ -1453,9 +1543,9 @@
               if (!hasBoy && !hasGirl) {
                 if (adj && adj.isW3Sunday && slot.id === "1-2") {
                   html += `
-                    <div class="mutual-free-card" style="background:#fdf4ff; border-color:#f5d0fe; color:#86198f;">
-                      <div class="mutual-free-title">😴 调课无课</div>
-                      <div class="mutual-free-sub" style="color:#a21caf;">早晨两人均无课</div>
+                    <div class="mutual-free-card" style="background:#fff7ed; border:1.5px dashed #fdba74; color:#c2410c;">
+                      <div class="mutual-free-title" style="color:#ea580c;">☕ 调课无课</div>
+                      <div class="mutual-free-sub" style="color:#d97706;">早晨两人均无课</div>
                     </div>
                   `;
                 } else {
@@ -1468,33 +1558,57 @@
                 }
               } else if (hasBoy && hasGirl) {
                 boyItems.forEach(c => {
+                  const makeupCls = c.isMakeup ? ' card-has-makeup' : '';
+                  const pillHtml = c.isMakeup 
+                    ? '<span class="makeup-badge">⚡ 调补</span>' 
+                    : '<span class="busy-pill">有课</span>';
+                  const nameHtml = c.isMakeup 
+                    ? `<div class="course-name" style="color:#c2410c; font-size:11.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-top:3px;">${c.name}</div>`
+                    : '';
                   html += `
-                    <div class="course-card card-boy" title="${c.name}">
+                    <div class="course-card card-boy${makeupCls}" title="${c.name}">
                       <div class="busy-card-row">
                         <span class="person-badge">👦 叙礼</span>
-                        <span class="busy-pill">${c.isMakeup ? '调补' : '有课'}</span>
+                        ${pillHtml}
                       </div>
+                      ${nameHtml}
                     </div>
                   `;
                 });
                 girlItems.forEach(c => {
+                  const makeupCls = c.isMakeup ? ' card-has-makeup' : '';
+                  const pillHtml = c.isMakeup 
+                    ? '<span class="makeup-badge">⚡ 调补</span>' 
+                    : '<span class="busy-pill">有课</span>';
+                  const nameHtml = c.isMakeup 
+                    ? `<div class="course-name" style="color:#c2410c; font-size:11.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-top:3px;">${c.name}</div>`
+                    : '';
                   html += `
-                    <div class="course-card card-girl" title="${c.name}">
+                    <div class="course-card card-girl${makeupCls}" title="${c.name}">
                       <div class="busy-card-row">
                         <span class="person-badge">👧 嘉慧</span>
-                        <span class="busy-pill">${c.isMakeup ? '调补' : '有课'}</span>
+                        ${pillHtml}
                       </div>
+                      ${nameHtml}
                     </div>
                   `;
                 });
               } else if (hasBoy && !hasGirl) {
                 boyItems.forEach(c => {
+                  const makeupCls = c.isMakeup ? ' card-has-makeup' : '';
+                  const pillHtml = c.isMakeup 
+                    ? '<span class="makeup-badge">⚡ 调补</span>' 
+                    : '<span class="busy-pill">有课</span>';
+                  const nameHtml = c.isMakeup 
+                    ? `<div class="course-name" style="color:#c2410c; font-size:11.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-top:3px;">${c.name}</div>`
+                    : '';
                   html += `
-                    <div class="course-card card-boy" title="${c.name}">
+                    <div class="course-card card-boy${makeupCls}" title="${c.name}">
                       <div class="busy-card-row">
                         <span class="person-badge">👦 叙礼</span>
-                        <span class="busy-pill">${c.isMakeup ? '调补' : '有课'}</span>
+                        ${pillHtml}
                       </div>
+                      ${nameHtml}
                     </div>
                   `;
                 });
@@ -1505,12 +1619,20 @@
                 `;
               } else if (!hasBoy && hasGirl) {
                 girlItems.forEach(c => {
+                  const makeupCls = c.isMakeup ? ' card-has-makeup' : '';
+                  const pillHtml = c.isMakeup 
+                    ? '<span class="makeup-badge">⚡ 调补</span>' 
+                    : '<span class="busy-pill">有课</span>';
+                  const nameHtml = c.isMakeup 
+                    ? `<div class="course-name" style="color:#c2410c; font-size:11.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-top:3px;">${c.name}</div>`
+                    : '';
                   html += `
-                    <div class="course-card card-girl" title="${c.name}">
+                    <div class="course-card card-girl${makeupCls}" title="${c.name}">
                       <div class="busy-card-row">
                         <span class="person-badge">👧 嘉慧</span>
-                        <span class="busy-pill">${c.isMakeup ? '调补' : '有课'}</span>
+                        ${pillHtml}
                       </div>
+                      ${nameHtml}
                     </div>
                   `;
                 });
@@ -1523,13 +1645,15 @@
             } else if (currentViewMode === "boy") {
               if (hasBoy) {
                 boyItems.forEach(c => {
+                  const makeupCls = c.isMakeup ? ' card-has-makeup' : '';
+                  const pillHtml = c.isMakeup ? '<span class="makeup-badge">⚡ 调补</span>' : '';
                   html += `
-                    <div class="course-card card-boy" style="${boyItems.length === 1 ? 'height:100%;' : ''} display:flex; flex-direction:column; justify-content:center;">
+                    <div class="course-card card-boy${makeupCls}" style="${boyItems.length === 1 ? 'height:100%;' : ''} display:flex; flex-direction:column; justify-content:center;">
                       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
                         <span class="person-badge">👦 叙礼</span>
-                        ${c.isMakeup ? '<span class="busy-pill">调补</span>' : ''}
+                        ${pillHtml}
                       </div>
-                      <div class="course-name">${c.name}</div>
+                      <div class="course-name" style="${c.isMakeup ? 'color:#c2410c;' : ''}">${c.name}</div>
                       ${c.location ? `<div class="course-detail"><span>📍</span> ${c.location}</div>` : ''}
                       ${c.teacher ? `<div class="course-detail"><span>👤</span> ${c.teacher}</div>` : ''}
                     </div>
@@ -1541,13 +1665,15 @@
             } else if (currentViewMode === "girl") {
               if (hasGirl) {
                 girlItems.forEach(c => {
+                  const makeupCls = c.isMakeup ? ' card-has-makeup' : '';
+                  const pillHtml = c.isMakeup ? '<span class="makeup-badge">⚡ 调补</span>' : '';
                   html += `
-                    <div class="course-card card-girl" style="${girlItems.length === 1 ? 'height:100%;' : ''} display:flex; flex-direction:column; justify-content:center;">
+                    <div class="course-card card-girl${makeupCls}" style="${girlItems.length === 1 ? 'height:100%;' : ''} display:flex; flex-direction:column; justify-content:center;">
                       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
                         <span class="person-badge">👧 嘉慧</span>
-                        ${c.isMakeup ? '<span class="busy-pill">调补</span>' : ''}
+                        ${pillHtml}
                       </div>
-                      <div class="course-name">${c.name}</div>
+                      <div class="course-name" style="${c.isMakeup ? 'color:#c2410c;' : ''}">${c.name}</div>
                       ${c.location ? `<div class="course-detail"><span>📍</span> ${c.location}</div>` : ''}
                       ${c.teacher ? `<div class="course-detail"><span>👤</span> ${c.teacher}</div>` : ''}
                     </div>
