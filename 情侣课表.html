@@ -981,19 +981,6 @@
         </div>
       </div>
 
-      <!-- Drag Slider (Continuous 1:1 Scrubbing) -->
-      <div class="slider-wrapper">
-        <div class="slider-track-container">
-          <input type="range" id="weekRangeSlider" min="0" max="10000" step="1" value="0" class="week-range-slider" oninput="onSliderDrag(this.value)">
-          <div class="slider-marks">
-            <span style="position: absolute; left: 0;">第3周<span class="mark-sub"> (开学)</span></span>
-            <span style="position: absolute; left: 15.4%; transform: translateX(-50%);">第5周<span class="mark-sub"> (放假)</span></span>
-            <span style="position: absolute; left: 53.8%; transform: translateX(-50%);">第10周<span class="mark-sub"> (补课)</span></span>
-            <span style="position: absolute; right: 0;">第16周<span class="mark-sub"> (结课)</span></span>
-          </div>
-        </div>
-      </div>
-
       <!-- Week Chips (Image 1: Scrollable horizontal list) -->
       <div id="weekSelectorBar" class="week-chips-row">
         <!-- Dynamically populated from Week 3 to 16 -->
@@ -1002,7 +989,7 @@
 
     <!-- Mobile Swipe Hint -->
     <div class="mobile-swipe-hint">
-      <span>👈</span> 拖动上方进度条或横向平移查看全周课表 · 左侧节次已固定 <span>👉</span>
+      <span>👈</span> 左右平移滑动查看全周课表 · 左侧节次已固定 <span>👉</span>
     </div>
 
     <!-- Continuous 14-Week Canvas Timetable -->
@@ -1614,18 +1601,6 @@
       scrollToWeek(realInfo.displayWeek, true);
     }
 
-    // Slider Drag (1:1 continuous scrubbing - moves with slider, NO snapping on release)
-    function onSliderDrag(val) {
-      isUserDraggingSlider = true;
-      const wrapper = document.getElementById("scheduleWrapper");
-      if (!wrapper) return;
-      const maxScroll = wrapper.scrollWidth - wrapper.clientWidth;
-      if (maxScroll > 0) {
-        wrapper.scrollLeft = (parseFloat(val) / 10000) * maxScroll;
-      }
-      updateActiveWeekFromScroll();
-    }
-
     // Update active week indicator & badge from scroll position
     function updateActiveWeekFromScroll() {
       const wrapper = document.getElementById("scheduleWrapper");
@@ -1676,24 +1651,13 @@
       }
     }
 
-    function setupSliderAndScrollSync() {
+    function setupScrollSync() {
       const wrapper = document.getElementById("scheduleWrapper");
-      const slider = document.getElementById("weekRangeSlider");
-      if (!wrapper || !slider) return;
+      if (!wrapper) return;
 
-      slider.addEventListener("change", () => {
-        isUserDraggingSlider = false;
-      });
-
-      // Synchronize slider position when user scrolls the timetable directly
+      // Synchronize active week badge & chips when user scrolls the timetable directly
       wrapper.addEventListener("scroll", () => {
-        if (!isUserDraggingSlider) {
-          const maxScroll = wrapper.scrollWidth - wrapper.clientWidth;
-          if (maxScroll > 0) {
-            slider.value = Math.round((wrapper.scrollLeft / maxScroll) * 10000);
-          }
-          updateActiveWeekFromScroll();
-        }
+        updateActiveWeekFromScroll();
       }, { passive: true });
     }
 
@@ -1737,7 +1701,7 @@
       updateTodayHeaderBadge();
       renderWeekBar();
       renderEntireSchedule();
-      setupSliderAndScrollSync();
+      setupScrollSync();
 
       // Scroll to current calculated week (e.g. Week 3) on load
       setTimeout(() => {
